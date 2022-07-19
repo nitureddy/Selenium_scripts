@@ -8,7 +8,7 @@ Ameya
 
 
 ## Components of the Framework
-
+Pojo: Pojos are used in Serialization and Deserialization with the help Gson library! 2.9
 
 
 ## Dependencies
