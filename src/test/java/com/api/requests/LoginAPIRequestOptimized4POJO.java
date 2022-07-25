@@ -43,7 +43,7 @@ public class LoginAPIRequestOptimized4POJO {
 		
 		System.out.println(token);
 		System.out.println("---------------------------");
-		response.then().log().all().and().assertThat().statusCode(200).and().assertThat()
-				.body(Matchers.containsString("Success"));
+			response.then().log().all().and().assertThat().statusCode(200).and().assertThat()
+					.body(Matchers.containsString("Success"));
 	}
 }
