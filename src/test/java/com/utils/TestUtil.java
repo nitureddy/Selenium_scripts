@@ -1,10 +1,17 @@
 package com.utils;
 
+import static io.restassured.RestAssured.given;
+
+import org.hamcrest.Matchers;
+
 import com.pojo.CreateJobPOJO;
 import com.pojo.CustomerAddressPOJO;
 import com.pojo.CustomerPOJO;
 import com.pojo.CustomerProductPOJO;
+import com.pojo.LoginPOJO;
 import com.pojo.ProblemPOJO;
+
+import io.restassured.http.Header;
 
 public class TestUtil {
 
@@ -14,8 +21,8 @@ public class TestUtil {
 				"vaibhav@gmail.com", "");
 		CustomerAddressPOJO customerAddressPOJO = new CustomerAddressPOJO("101", "abc apt", "street name1",
 				"near ayyapa temple", "kukatpally", "500072", "India", "Andhra Pradesh");
-		CustomerProductPOJO customerProductPOJO = new CustomerProductPOJO("2022-04-05T18:30:00.000Z", "12344567123412",
-				"12344567123412", "12344567123412", "2022-04-05T18:30:00.000Z", 1, 2);
+		CustomerProductPOJO customerProductPOJO = new CustomerProductPOJO("2022-04-05T18:30:00.000Z", "62344567123411",
+				"62344567123411", "62344567123411", "2022-04-05T18:30:00.000Z", 1, 2);
 		ProblemPOJO[] problems = new ProblemPOJO[3];
 		problems[0] = new ProblemPOJO(1, "battery drains quickly");
 		problems[1] = new ProblemPOJO(4, "camera not working");
@@ -30,5 +37,18 @@ public class TestUtil {
 	public String createIMEINumber() {
 		// Generate a random 14 digit number using Java
 		return null;
+	}
+	
+	
+	public static String generateToken() {
+		// Generate a random 14 digit number using Java
+		String token = given().when().header(new Header("content-type", "application/json")).and()
+				.body(new LoginPOJO("iamfd", "password").toJson()).and().post("v1/login").then().log().all().and()
+				.assertThat().statusCode(200).and().assertThat().body(Matchers.containsString("Success")).and()
+				.extract().jsonPath().getString("data.token");
+		System.out.println("-------------" + token);
+		return token;
+	
+	
 	}
 }
