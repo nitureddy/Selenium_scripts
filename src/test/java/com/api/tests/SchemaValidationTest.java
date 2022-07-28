@@ -24,7 +24,7 @@ import io.restassured.http.Headers;
 import io.restassured.module.jsv.JsonSchemaValidator;
 
 public class SchemaValidationTest {
-	//
+	//https://jsonformatter.org/json-to-jsonschema
 
 	private String token;
 	private CreateJobPOJO createJobPOJO;
@@ -42,7 +42,12 @@ public class SchemaValidationTest {
 	@Test(description = "verify if login API request is working or not", groups = { "sanity", "smoke", "e2e", "api",
 			"regression" }, priority = 1)
 	public void verifyLoginAPI() {
-
+/*
+ * statusCode
+ * ResponseBody
+ * SchemaValidation
+ * ResponseTime
+ */
 		token = given().when().header(new Header("content-type", "application/json")).and()
 				.body(new LoginPOJO("iamfd", "password").toJson()).and().post("v1/login").then().log().all().and()
 				.assertThat().statusCode(200).and().assertThat().body(Matchers.containsString("Success")).and()
