@@ -5,18 +5,13 @@ import static io.restassured.RestAssured.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.pojo.CreateJobPOJO;
-import com.pojo.CustomerAddressPOJO;
-import com.pojo.CustomerPOJO;
-import com.pojo.CustomerProductPOJO;
+
 import com.pojo.LoginPOJO;
-import com.pojo.ProblemPOJO;
 import com.utils.TestUtil;
 
 import io.restassured.http.Header;
