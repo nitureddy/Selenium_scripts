@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hamcrest.Matchers;
+import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -34,25 +35,23 @@ public class CreateJobTest {
 
 	@Test(description = "verify if create job API request is working or not", groups = { "sanity", "smoke", "e2e",
 			"api", "regression" }, priority = 2)
-	public void createJobAPITest() {
+	public void createJobAPITest(ITestContext ctx) {
 
-	
 		List<Header> myHeaderList = new ArrayList<Header>();
 		myHeaderList.add(new Header("content-type", "application/json"));
-		myHeaderList.add(new Header("Authorization", token));
+		Object d = ctx.getAttribute("FDToken");
+		System.out.println("Inside Create Job Test"+(String) d);
+		myHeaderList.add(new Header("Authorization", (String) d));
 
 		job_Number = given().when().headers(new Headers(myHeaderList)).and().body(createJobPOJO.toJson()).and()
 				.post("/v1/job/create").then().log().all().assertThat().statusCode(200).and()
 				.body(Matchers.containsString("Job created successfully."))
-				
-				
+
 				.body("data.mst_service_location_id", Matchers.equalTo(1))
 				.body("data.mst_platform_id", Matchers.equalTo(2))
-				.body("data.mst_warrenty_status_id", Matchers.equalTo(1))
-				.body("data.mst_oem_id", Matchers.equalTo(1))
+				.body("data.mst_warrenty_status_id", Matchers.equalTo(1)).body("data.mst_oem_id", Matchers.equalTo(1))
 				.body("data.tr_customer_id", Matchers.greaterThan(0))
-				.body("data.tr_customer_product_id", Matchers.greaterThan(0))
-				.extract().jsonPath().getString("data.id");
+				.body("data.tr_customer_product_id", Matchers.greaterThan(0)).extract().jsonPath().getString("data.id");
 	}
 
 }
