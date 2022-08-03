@@ -22,10 +22,9 @@ public class LoginTest {
 	// every@Test
 	public void setup() {
 		baseURI = "http://139.59.91.96:9000";
-
 	}
 
-	@Test(description = "verify if login API request is working or not", groups = { "sanity", "smoke", "e2e", "api",
+	@Test(description = "verify if login API request for FD is working or not", groups = { "sanity", "smoke", "e2e", "api",
 			"regression" }, priority = 1)
 	public void verifyLoginAPI(ITestContext ctx) {
 
@@ -39,4 +38,5 @@ public class LoginTest {
 		ctx.setAttribute("FDToken", token);
 
 	}
+	
 }

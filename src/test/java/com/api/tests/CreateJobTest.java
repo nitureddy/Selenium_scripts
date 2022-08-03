@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.hamcrest.Matchers;
 import org.testng.ITestContext;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -29,8 +28,8 @@ public class CreateJobTest {
 																									// every@Test
 	public void setup() {
 		baseURI = "http://139.59.91.96:9000";
-		createJobPOJO = TestUtil.getCreateJobData();
-		token = TestUtil.generateToken();
+		createJobPOJO = TestUtil.getCreateJobDataWithFaker();
+		//token = TestUtil.generateToken();
 	}
 
 	@Test(description = "verify if create job API request is working or not", groups = { "sanity", "smoke", "e2e",
@@ -46,12 +45,13 @@ public class CreateJobTest {
 		job_Number = given().when().headers(new Headers(myHeaderList)).and().body(createJobPOJO.toJson()).and()
 				.post("/v1/job/create").then().log().all().assertThat().statusCode(200).and()
 				.body(Matchers.containsString("Job created successfully."))
-
 				.body("data.mst_service_location_id", Matchers.equalTo(1))
 				.body("data.mst_platform_id", Matchers.equalTo(2))
 				.body("data.mst_warrenty_status_id", Matchers.equalTo(1)).body("data.mst_oem_id", Matchers.equalTo(1))
 				.body("data.tr_customer_id", Matchers.greaterThan(0))
 				.body("data.tr_customer_product_id", Matchers.greaterThan(0)).extract().jsonPath().getString("data.id");
+		
+		System.out.println("Job number : --- "+job_Number);
 	}
 
 }
