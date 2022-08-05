@@ -1,7 +1,9 @@
 package com.pojo;
 
-public class RepairJobPOJO {
-	
+import com.google.gson.Gson;
+
+public class RepairJobPOJO implements IBody {
+
 	private int job_id;
 
 	public RepairJobPOJO(int job_id) {
@@ -21,8 +23,12 @@ public class RepairJobPOJO {
 	public String toString() {
 		return "RepairJobPojo [job_id=" + job_id + "]";
 	}
-	
-	
-	
+
+	public String toJson() {
+		// TODO Auto-generated method stub
+		RepairJobPOJO r = new RepairJobPOJO(job_id);
+		Gson g = new Gson();
+		return g.toJson(r);
+	}
 
 }
