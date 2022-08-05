@@ -23,7 +23,7 @@ import io.restassured.response.Response;
 
 import org.testng.ITestContext;
 
-public class InwarrantyCreateJobTest {
+public class InwarrantyAllInOne {
 	//
 
 	private String fdtoken;
