@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="CreateJob Suite" guice-stage="DEVELOPMENT">
-	<test thread-count="5" name="CreateJob TEst">
+<suite name="InWarrenty Suite" guice-stage="DEVELOPMENT">
+	<test thread-count="1" name="CreateJob TEst" preserve-order="true">
 		<classes>
-			<class name="com.api.tests.LoginTest"></class>
-			<class name="com.api.tests.CreateJobTest"></class>
-
-			
+			<class name="com.api.restassured.InwarrentyFlow_manoj.LoginTestFD"></class>
+			<class name="com.api.restassured.InwarrentyFlow_manoj.CreateJobTest"></class>
+			<class name="com.api.restassured.InwarrentyFlow_manoj.LoginTestSUP"></class>
+			<class name="com.api.restassured.InwarrentyFlow_manoj.SUPJobAssignToEngAPI"></class>
+			<class name="com.api.restassured.InwarrentyFlow_manoj.LoginTestENG"></class>
+			<class name="com.api.restassured.InwarrentyFlow_manoj.EngineerJobRepairAPI"></class>
+			<class name="com.api.restassured.InwarrentyFlow_manoj.LoginTestQC"></class>
+			<class name="com.api.restassured.InwarrentyFlow_manoj.CompleteQCAPI"></class>
+			<class name="com.api.restassured.InwarrentyFlow_manoj.JobDeliverytoCustomerAPI"></class>
+			<class name="com.api.restassured.InwarrentyFlow_manoj.JobClosedAPI"></class>
 		</classes>
 	</test> 
 </suite> 

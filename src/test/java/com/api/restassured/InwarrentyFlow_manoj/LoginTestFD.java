@@ -13,7 +13,7 @@ import com.utils.TestUtil;
 
 import io.restassured.http.Header;
 
-public class LoginTest {
+public class LoginTestFD {
 
 	private String token;
 
@@ -32,8 +32,9 @@ public class LoginTest {
 				.body(new LoginPOJO("iamfd", "password").toJson()).and().post("v1/login").then().log().all().and()
 				.assertThat().statusCode(200).and().assertThat().body(Matchers.containsString("Success")).and()
 				.extract().jsonPath().getString("data.token");
-		System.out.println("-------------" + token);
-		System.out.println("Inside Login Test"+token);
+		System.out.println("--------------------------- FD Token ----------------");
+		System.out.println(token);
+		System.out.println("------------------------------------------------------");
 
 		ctx.setAttribute("FDToken", token);
 

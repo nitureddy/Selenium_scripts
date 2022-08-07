@@ -5,6 +5,7 @@ import static io.restassured.RestAssured.given;
 import java.util.Locale;
 
 import org.hamcrest.Matchers;
+import org.testng.ITestContext;
 
 import com.github.javafaker.Faker;
 import com.pojo.CreateJobPOJO;
@@ -68,7 +69,8 @@ public class TestUtil {
 				.body(new LoginPOJO("iamfd", "password").toJson()).and().post("v1/login").then().log().all().and()
 				.assertThat().statusCode(200).and().assertThat().body(Matchers.containsString("Success")).and()
 				.extract().jsonPath().getString("data.token");
-		System.out.println("-------------" + token);
+		System.out.println("I am token from generateToken ---- >>> " + token);
+		//ctx.setAttribute("FDToken", token);
 		return token;
 
 	}

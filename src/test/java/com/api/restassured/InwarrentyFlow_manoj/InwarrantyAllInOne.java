@@ -33,6 +33,7 @@ public class InwarrantyAllInOne {
 	private CreateJobPOJO createJobPOJO;
 //	private String job_Number;
 	private int job_id;
+	private ITestContext ctx;
 	
 	@BeforeClass(description = "intializing  the baseURI, creating the testData for api testing") // before will be
 																									// called before
@@ -176,7 +177,7 @@ public class InwarrantyAllInOne {
 	@Test(description = "verify if API request for Delivery to customer is working or not", groups = { "sanity", "smoke", "e2e", "api",
 	"regression" }, priority = 10)
 	public void DeliveryToCusotmerAPI() {
-		
+
 		fdtoken = TestUtil.generateToken();
 		List<Header> myHeaderList = new ArrayList<Header>();
 		myHeaderList.add(new Header("content-type", "application/json"));
@@ -197,8 +198,8 @@ public class InwarrantyAllInOne {
 		myHeaderList.add(new Header("Authorization", fdtoken));
 		given().when().headers(new Headers(myHeaderList))
 		.and().body(new JOBSearchPOJO("JOB_"+job_id).toJson()).and().post("/v1/job/search")
-		.then().log().all().assertThat().statusCode(200)
-		.and().body(Matchers.containsString("Job Closed Successfully"));
+		.then().log().all().assertThat().statusCode(200).extract().jsonPath().getString("data.mst_action_status").equalsIgnoreCase("Job Closed Successfully");
+//		.and().body(Matchers.containsString("Job Closed Successfully"));	
 
 	}
 
