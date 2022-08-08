@@ -9,8 +9,10 @@ Ameya
 
 ## Components of the Framework
 Pojo: Pojos are used in Serialization and Deserialization with the help Gson library! 2.9
-
-
+Rest Assured:  Testing API Requests
+TestNG: Control the test execution
+OpenCSV: Read Test Data from CSV file
+		:Keep the testData Files in the testData Folder
 ## Dependencies
 
 All the dependencies are added inside pom.xml

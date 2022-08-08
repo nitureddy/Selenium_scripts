@@ -16,6 +16,10 @@ public class Runner {
 				new Header("content-type", "application/json"));
 		System.out.println(response.asPrettyString());
 
+		String d = "JOB_1234";
+		System.out.println(Integer.parseInt(d));
+		
+		
 	}
 
 }

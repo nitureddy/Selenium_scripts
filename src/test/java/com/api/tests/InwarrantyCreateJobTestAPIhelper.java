@@ -19,8 +19,11 @@ import com.pojo.LoginPOJO;
 import com.pojo.ProblemPOJO;
 import com.utils.TestUtil;
 
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.http.ContentType;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
+import io.restassured.specification.ResponseSpecification;
 
 public class InwarrantyCreateJobTestAPIhelper {
 	//
@@ -29,6 +32,7 @@ public class InwarrantyCreateJobTestAPIhelper {
 	private CreateJobPOJO createJobPOJO;
 	private String job_Number;
 	private APIHelper helper;
+	private ResponseSpecBuilder responseSpecBuilder;
 
 	@BeforeClass(description = "intializing  the baseURI, creating the testData for api testing") // before will be
 																									// called before
@@ -37,6 +41,9 @@ public class InwarrantyCreateJobTestAPIhelper {
 		helper = new APIHelper();
 		createJobPOJO = TestUtil.getCreateJobData();
 		token = TestUtil.generateToken();
+//Add responseSpecification to reduce the number statements in your tests! 3 tests
+		responseSpecBuilder = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON)
+				.expectResponseTime(Matchers.lessThan((long) 500));
 	}
 
 	@Test(description = "verify if login API request is working or not", groups = { "sanity", "smoke", "e2e", "api",
@@ -46,13 +53,8 @@ public class InwarrantyCreateJobTestAPIhelper {
 		token = helper
 				.makeAPIRequest("v1/login", Verb.POST, new LoginPOJO("iamfd", "password"),
 						new Header("content-type", "application/json"))
-				.then()
-				.and()
-				.assertThat()
-				.statusCode(200)
-				.and()
-				.assertThat()
-				.body(Matchers.containsString("Success")).and().extract().jsonPath().getString("data.token");
+				.then().and().assertThat().statusCode(200).and().assertThat().body(Matchers.containsString("Success"))
+				.and().extract().jsonPath().getString("data.token");
 		System.out.println("-------------" + token);
 	}
 
@@ -68,14 +70,13 @@ public class InwarrantyCreateJobTestAPIhelper {
 		myHeaderList.add(new Header("content-type", "application/json"));
 		myHeaderList.add(new Header("Authorization", token));
 
-		job_Number =	helper
-		.makeAPIRequest("/v1/job/create", Verb.POST, createJobPOJO,
-				new Header("content-type", "application/json"),new Header("Authorization", token))
-		.then()
-		.assertThat()
-		.statusCode(200)
-		.and()
-		.body(Matchers.containsString("Job created successfully.")).extract().jsonPath().getString("data.id");
+		job_Number = helper
+				.makeAPIRequest("/v1/job/create", Verb.POST, createJobPOJO,
+						new Header("content-type", "application/json"), new Header("Authorization", token)) //IMP
+				.then().assertThat().spec((ResponseSpecification) responseSpecBuilder)
+
+				.and().body(Matchers.containsString("Job created successfully.")).extract().jsonPath()
+				.getString("data.id");
 	}
 
 }
