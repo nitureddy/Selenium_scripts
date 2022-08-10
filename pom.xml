@@ -24,14 +24,14 @@
 			<version>7.5.0</version>
 			<scope>test</scope>
 		</dependency>
-		
-		
+
+
 		<dependency>
-    <groupId>io.cucumber</groupId>
-    <artifactId>cucumber-java</artifactId>
-    <version>7.5.0</version>
-    <scope>test</scope>
-</dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>7.5.0</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -62,5 +62,15 @@
 			<artifactId>json-schema-validator</artifactId>
 			<version>5.1.1</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
+		<dependency>
+			<groupId>com.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>5.6</version>
+		</dependency>
+
+
+
 	</dependencies>
 </project>
