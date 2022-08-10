@@ -1,5 +1,5 @@
-userName,password
-iamfd,password
-iamsup,password
-iameng,password
-iamqc,password
+USerType,userName,password
+FD,iamfd,password
+SUP,iamsup,password
+ENG,iameng,password
+QC,iamqc,password

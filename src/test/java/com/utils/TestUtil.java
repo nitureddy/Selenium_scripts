@@ -2,11 +2,19 @@ package com.utils;
 
 import static io.restassured.RestAssured.given;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
 import org.hamcrest.Matchers;
 
 import com.github.javafaker.Faker;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 import com.pojo.CreateJobPOJO;
 import com.pojo.CustomerAddressPOJO;
 import com.pojo.CustomerPOJO;
@@ -58,11 +66,6 @@ public class TestUtil {
 		return createJobPOJO;
 	}
 
-	public String createIMEINumber() {
-		// Generate a random 14 digit number using Java
-		return null;
-	}
-
 	public static String generateToken() {
 		String token = given().when().header(new Header("content-type", "application/json")).and()
 				.body(new LoginPOJO("iamfd", "password").toJson()).and().post("v1/login").then().log().all().and()
@@ -72,4 +75,36 @@ public class TestUtil {
 		return token;
 
 	}
+
+	public static Iterator<String[]> readCSVFile(String fileName) {
+		// WHere the file: Location
+		File myFile = new File(System.getProperty("user.dir") + "//testData//" + fileName);
+		FileReader myFileReader = null;
+		List<String[]> dataList = null;
+		CSVReader csvReader = null;
+		try {
+			myFileReader = new FileReader(myFile);
+			csvReader = new CSVReader(myFileReader);
+			dataList = csvReader.readAll();
+		}
+
+		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Unable to find the file!! Check the file path");
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Unable to read the file!!");
+			e.printStackTrace();
+		} catch (CsvException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Unable to read the CSV file!! Is the filetype csv?");
+		}
+
+		Iterator<String[]> dataIterator = dataList.iterator();
+		dataIterator.next(); //0...1
+		return dataIterator;
+	}
+
 }

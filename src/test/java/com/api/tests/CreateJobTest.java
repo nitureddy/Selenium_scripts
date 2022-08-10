@@ -32,6 +32,10 @@ public class CreateJobTest {
 		createJobPOJO = TestUtil.getCreateJobData();
 		token = TestUtil.generateToken();
 	}
+	/*
+	 * 
+	 * ITestContext ctx Test Independence
+	 */
 
 	@Test(description = "verify if create job API request is working or not", groups = { "sanity", "smoke", "e2e",
 			"api", "regression" }, priority = 2)
@@ -40,8 +44,8 @@ public class CreateJobTest {
 		List<Header> myHeaderList = new ArrayList<Header>();
 		myHeaderList.add(new Header("content-type", "application/json"));
 		Object d = ctx.getAttribute("FDToken");
-		System.out.println("Inside Create Job Test"+(String) d);
-		myHeaderList.add(new Header("Authorization", (String) d));
+		System.out.println("Inside Create Job Test" + (String) d);
+		myHeaderList.add(new Header("Authorization", TestBase.tokenMap.get("FD")));
 
 		job_Number = given().when().headers(new Headers(myHeaderList)).and().body(createJobPOJO.toJson()).and()
 				.post("/v1/job/create").then().log().all().assertThat().statusCode(200).and()
