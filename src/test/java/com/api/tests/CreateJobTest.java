@@ -18,7 +18,7 @@ import com.utils.TestUtil;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 
-public class CreateJobTest {
+public class CreateJobTest extends TestBase {
 
 	private String token;
 	private CreateJobPOJO createJobPOJO;
@@ -29,7 +29,7 @@ public class CreateJobTest {
 																									// every@Test
 	public void setup() {
 		baseURI = "http://139.59.91.96:9000";
-		createJobPOJO = TestUtil.getCreateJobData();
+		createJobPOJO = TestUtil.getCreateJobDataWithFaker();
 		token = TestUtil.generateToken();
 	}
 	/*
@@ -44,8 +44,9 @@ public class CreateJobTest {
 		List<Header> myHeaderList = new ArrayList<Header>();
 		myHeaderList.add(new Header("content-type", "application/json"));
 		Object d = ctx.getAttribute("FDToken");
-		System.out.println("Inside Create Job Test" + (String) d);
-		myHeaderList.add(new Header("Authorization", TestBase.tokenMap.get("FD")));
+		//System.out.println("Inside Create Job Test" + (String) d);
+		myHeaderList.add(new Header("Authorization", tokenMap.get("FD")));
+		//myHeaderList.add(new Header("Authorization", (String) d));
 
 		job_Number = given().when().headers(new Headers(myHeaderList)).and().body(createJobPOJO.toJson()).and()
 				.post("/v1/job/create").then().log().all().assertThat().statusCode(200).and()
@@ -56,6 +57,9 @@ public class CreateJobTest {
 				.body("data.mst_warrenty_status_id", Matchers.equalTo(1)).body("data.mst_oem_id", Matchers.equalTo(1))
 				.body("data.tr_customer_id", Matchers.greaterThan(0))
 				.body("data.tr_customer_product_id", Matchers.greaterThan(0)).extract().jsonPath().getString("data.id");
+		
+		
+		System.out.println("Job created as : >>>>> "+ job_Number);
 	}
 
 }

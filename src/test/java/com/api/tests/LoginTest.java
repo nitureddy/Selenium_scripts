@@ -19,7 +19,6 @@ import io.restassured.http.Header;
 public class LoginTest extends TestBase {
 
 	private String token;
-//	HashMap<String, String> tokenMap;
 
 	@BeforeClass(description = "intializing  the baseURI") // before will be
 	// called before
@@ -27,8 +26,7 @@ public class LoginTest extends TestBase {
 
 	public void setup() {
 		baseURI = "http://139.59.91.96:9000";
-		tokenMap = new HashMap<String, String>();
-
+		tokenMap = new HashMap<String, String>(); // from TestBase
 	}
 
 	@Test(description = "verify if login API request is working or not", groups = { "sanity", "smoke", "e2e", "api",
@@ -40,7 +38,7 @@ public class LoginTest extends TestBase {
 				.statusCode(200).and().assertThat().body(Matchers.containsString("Success")).and().extract().jsonPath()
 				.getString("data.token");
 		System.out.println("-------------" + token);
-		System.out.println("Inside Login Test" + token);
+		System.out.println("Inside Login Test for "+userRole + "Token is :-- "+ token);
 		System.out.println(userRole);
 		tokenMap.put(userRole, token);
 		ctx.setAttribute("FDToken", token);
