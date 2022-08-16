@@ -7,6 +7,7 @@ import org.testng.annotations.DataProvider;
 import com.utils.TestUtil;
 
 public class LoginDataProvider {
+
 	@DataProvider(name = "loginDP")
 	public Iterator<String[]> loginTestDatProvider() {
 //Bring data to the test @test
@@ -17,4 +18,5 @@ public class LoginDataProvider {
 		Iterator<String[]> data = TestUtil.readCSVFile("loginCreditals.csv");
 		return data;
 	}
+
 }
