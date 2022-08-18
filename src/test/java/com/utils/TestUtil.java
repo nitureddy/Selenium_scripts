@@ -10,6 +10,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hamcrest.Matchers;
 
 import com.github.javafaker.Faker;
@@ -103,8 +108,47 @@ public class TestUtil {
 		}
 
 		Iterator<String[]> dataIterator = dataList.iterator();
-		dataIterator.next(); //0...1
+		dataIterator.next(); // 0...1
 		return dataIterator;
+	}
+
+	public static String[][] readExcel() throws InvalidFormatException, IOException {
+
+		// Java Where the .xlsx file
+
+		File myFile = new File(System.getProperty("user.dir") + "//testData//TestData.xlsx");
+
+		XSSFWorkbook myWorkBook = new XSSFWorkbook(myFile);
+
+		XSSFSheet mySheet = myWorkBook.getSheetAt(0);
+
+		XSSFRow myRow;
+
+		XSSFCell myCell;
+
+		// System.out.println(myCell.toString());
+//row 0 to 1
+// 0 to 1
+		
+
+
+		int lastRowIndex = mySheet.getLastRowNum();
+		XSSFRow rowHeader = mySheet.getRow(0);
+		int totalNumberCols = rowHeader.getLastCellNum();
+
+		String[][] data = new String[lastRowIndex][totalNumberCols];
+
+		for (int rowIndex = 1; rowIndex <= lastRowIndex; rowIndex++) {
+
+			for (int colIndex = 0; colIndex < totalNumberCols; colIndex++) {
+				myRow = mySheet.getRow(rowIndex);
+				myCell = myRow.getCell(colIndex);
+				data[rowIndex-1][colIndex] = myCell.toString();
+
+			}
+		}
+
+		return data;
 	}
 
 }

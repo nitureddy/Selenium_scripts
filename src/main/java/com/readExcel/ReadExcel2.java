@@ -9,7 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class ReadExcel {
+public class ReadExcel2 {
 	public static void main(String[] args) throws InvalidFormatException, IOException {
 
 		// Java Where the .xlsx file
@@ -20,29 +20,11 @@ public class ReadExcel {
 
 		XSSFSheet mySheet = myWorkBook.getSheetAt(0);
 
-		XSSFRow myRow;
-
-		XSSFCell myCell;
-
-		// System.out.println(myCell.toString());
-//row 0 to 1
-// 0 to 1
 		int lastRowIndex = mySheet.getLastRowNum();
+
 		XSSFRow rowHeader = mySheet.getRow(0);
+
 		int totalNumberCols = rowHeader.getLastCellNum();
-
-		String[][] data = new String[lastRowIndex + 1][totalNumberCols];
-
-		for (int rowIndex = 0; rowIndex <= lastRowIndex; rowIndex++) {
-
-			for (int colIndex = 0; colIndex < totalNumberCols; colIndex++) {
-				myRow = mySheet.getRow(rowIndex);
-				myCell = myRow.getCell(colIndex);
-				data[rowIndex][colIndex] = myCell.toString();
-				System.out.println(myCell.toString());
-			}
-		}
-
-		// for loop
+		System.out.println(totalNumberCols);
 	}
 }
