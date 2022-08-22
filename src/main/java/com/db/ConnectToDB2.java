@@ -6,13 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ConnectToDB {
-static	Connection con; 
-	public static void test(String[] args) throws SQLException {
+public class ConnectToDB2 {
+	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection con = DriverManager.getConnection("jdbc:mysql://139.59.91.96:3306/SR_DEV", "produser", "qweQWe123!");
-		// Statement
 
+		Connection con = DBConnector.getConnection();
 		Statement statement = con.createStatement();
 
 		ResultSet result = statement.executeQuery("SELECT * from SR_DEV.mst_oem");
@@ -22,6 +20,13 @@ static	Connection con;
 			System.out.println(result.getString("name") + result.getString("code"));
 		}
 		// Result
+		
+		System.out.println(con);
+		Connection con1 = DBConnector.getConnection();
+		Connection con2 = DBConnector.getConnection();
+		System.out.println(con1);
+		System.out.println(con2);
+
 	}
 
 }
