@@ -31,16 +31,16 @@ public class LoginTest extends TestBase {
 
 	@Test(description = "verify if login API request is working or not", groups = { "sanity", "smoke", "e2e", "api",
 			"regression" }, priority = 1, dataProviderClass = com.dataproviders.LoginDataProvider.class, dataProvider = "loginDP")
-	public void verifyLoginAPI(String userRole, String x, String y, ITestContext ctx) {
+	public void verifyLoginAPI(LoginPOJO l, ITestContext ctx) {
 
 		token = given().when().header(new Header("content-type", "application/json")).and()
-				.body(new LoginPOJO(x, y).toJson()).and().post("v1/login").then().log().all().and().assertThat()
+				.body(new LoginPOJO(l.getUserRole(), l.getPassword()t).toJson()).and().post("v1/login").then().log().all().and().assertThat()
 				.statusCode(200).and().assertThat().body(Matchers.containsString("Success")).and().extract().jsonPath()
 				.getString("data.token");
 		System.out.println("-------------" + token);
-		System.out.println("Inside Login Test for "+userRole + "Token is :-- "+ token);
-		System.out.println(userRole);
-		tokenMap.put(userRole, token);
+		System.out.println("Inside Login Test for "+l.getUserRole() + "Token is :-- "+ token);
+		System.out.println(l.getUserRole());
+		tokenMap.put(l.getUserRole(), token);
 		ctx.setAttribute("FDToken", token);
 
 	}

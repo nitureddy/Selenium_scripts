@@ -11,7 +11,7 @@ import com.utils.TestUtil;
 public class LoginDataProviderExcel {
 
 	@DataProvider(name = "loginDPExcel")
-	public String[][] loginTestDatProvider() {
+	public Object[][] loginTestDatProvider() {
 //Bring data to the test @test
 		/*
 		 * Object[] Object[][] Iterator<Object>

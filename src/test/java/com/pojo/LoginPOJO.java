@@ -3,6 +3,7 @@ package com.pojo;
 import com.google.gson.Gson;
 
 public class LoginPOJO implements IBody {
+	private String userRole;
 	private String username;
 	private String password;
 
@@ -10,6 +11,24 @@ public class LoginPOJO implements IBody {
 		super();
 		this.username = username;
 		this.password = password;
+	}
+
+	public LoginPOJO(String userRole, String username, String password) { //secondary
+		super();
+		this.userRole = userRole;
+		this.username = username;
+		this.password = password;
+	}
+
+	
+	
+	
+	public String getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
 	}
 
 	public String getUsername() {

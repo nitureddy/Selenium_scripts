@@ -29,6 +29,38 @@ public final class CreateJobPOJO implements IBody {
 		this.problems = problems;
 	}
 
+	public CustomerPOJO getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(CustomerPOJO customer) {
+		this.customer = customer;
+	}
+
+	public CustomerAddressPOJO getCustomer_address() {
+		return customer_address;
+	}
+
+	public void setCustomer_address(CustomerAddressPOJO customer_address) {
+		this.customer_address = customer_address;
+	}
+
+	public CustomerProductPOJO getCustomer_product() {
+		return customer_product;
+	}
+
+	public void setCustomer_product(CustomerProductPOJO customer_product) {
+		this.customer_product = customer_product;
+	}
+
+	public ProblemPOJO[] getProblems() {
+		return problems;
+	}
+
+	public void setProblems(ProblemPOJO[] problems) {
+		this.problems = problems;
+	}
+
 	public int getMst_service_location_id() {
 		return mst_service_location_id;
 	}

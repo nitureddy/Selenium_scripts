@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.dao.DBConnector;
+
 public class ConnectToDB2 {
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
