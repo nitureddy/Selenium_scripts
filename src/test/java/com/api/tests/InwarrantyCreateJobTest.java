@@ -10,6 +10,7 @@ import org.hamcrest.Matchers;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.dao.CustomerDAO;
@@ -34,7 +35,7 @@ public class InwarrantyCreateJobTest {
 	private com.pojo.CustomerPOJO customerInfoPassed;
 	private int customerId;
 
-	@BeforeClass(description = "intializing  the baseURI, creating the testData for api testing") // before will be
+	@BeforeTest(description = "intializing  the baseURI, creating the testData for api testing", alwaysRun = true) // before will be																						// called befo																							// every@Test
 																									// called before
 																									// every@Test
 	public void setup() {

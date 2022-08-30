@@ -9,6 +9,7 @@ import java.util.List;
 import org.hamcrest.Matchers;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.pojo.CreateJobPOJO;
@@ -23,7 +24,7 @@ public class CreateJobTestFaker {
 	private CreateJobPOJO createJobPOJO;
 	private String job_Number;
 
-	@BeforeMethod(description = "intializing  the baseURI, creating the testData for api testing") // before will be
+	@BeforeTest(description = "intializing  the baseURI, creating the testData for api testing", alwaysRun = true) // before will be																						// called befo																							// every@Test
 																									// called before
 																									// every@Test
 	public void setup() {
@@ -32,7 +33,7 @@ public class CreateJobTestFaker {
 		token = TestUtil.generateToken();
 	}
 
-	@Test(description = "verify if create job API request is working or not", groups = { "sanity", "smoke", "e2e",
+	@Test(description = "verify if create job API request is working or not", groups = { "smoke", "e2e",
 			"api", "regression" }, priority = 2)
 	public void createJobAPITest() {
 		System.out.println(createJobPOJO.toJson());

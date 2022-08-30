@@ -4,7 +4,7 @@
 	<test thread-count="5" name="CreateJob TEst">
 		<classes>
 			<class name="com.api.tests.LoginTest"></class>
-			<class name="com.api.tests.CreateJobTest"></class>
+			<class name="com.api.tests.CreateJobFakerTest"></class>
 
 			
 		</classes>

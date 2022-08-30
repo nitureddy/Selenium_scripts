@@ -10,6 +10,7 @@ import org.hamcrest.Matchers;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.pojo.CreateJobPOJO;
@@ -24,9 +25,7 @@ public class CreateJobTest extends TestBase {
 	private CreateJobPOJO createJobPOJO;
 	private String job_Number;
 
-	@BeforeMethod(description = "intializing  the baseURI, creating the testData for api testing") // before will be
-																									// called before
-																									// every@Test
+	@BeforeTest(description = "intializing  the baseURI, creating the testData for api testing", alwaysRun = true) // before will be																						// called befo																							// every@Test
 	public void setup() {
 		baseURI = "http://139.59.91.96:9000";
 		createJobPOJO = TestUtil.getCreateJobDataWithFaker();
@@ -37,8 +36,7 @@ public class CreateJobTest extends TestBase {
 	 * ITestContext ctx Test Independence
 	 */
 
-	@Test(description = "verify if create job API request is working or not", groups = { "sanity", "smoke", "e2e",
-			"api", "regression" }, priority = 2)
+	@Test(description = "verify if create job API request is working or not", groups = { "sanity" }, priority = 2)
 	public void createJobAPITest(ITestContext ctx) {
 
 		List<Header> myHeaderList = new ArrayList<Header>();

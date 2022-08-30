@@ -1,4 +1,4 @@
-package com.api.tests;
+package com.api.test2;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
@@ -20,11 +20,11 @@ import io.restassured.response.Response;
 public class LoginAPITest {
 	
 	private String token;
-	@BeforeTest(description = "intializing  the baseURI, creating the testData for api testing", alwaysRun = true) // before will be																						// called befo																							// every@Test
+	@BeforeTest(description = "initialising the Base URI",alwaysRun = true)
 	public void setup() {
 		baseURI = "http://139.59.91.96:9000";
 	}
-	@Test(description = "Verify if Login API working or not", groups = {"smoke","api","regression","e2e"}, priority = 1)
+	@Test(description = "Verify if Login API working or not", groups = {"sanity","smoke","api","regression","e2e"}, priority = 1)
 	public void verifyLoginAPI() {
 
 		token = given().when().header(new Header("content-type", "application/json"))
@@ -35,7 +35,7 @@ public class LoginAPITest {
 	System.out.println("Token :> "+token);	
 	}
 	
-	@Test(description = "Verify if Create Job API working or not", groups = {"smoke","api","regression","e2e"}, priority = 2)
+	@Test(description = "Verify if Create Job API working or not", groups = {"sanity","smoke","api","regression","e2e"}, priority = 2)
 	public void createjobAPITest() {
 
 		CustomerAddressPOJO customerAddress = new CustomerAddressPOJO("101", "ABC", "MG Road", "inorbit", "abc",
