@@ -1,10 +1,11 @@
-package com.api.tests;
+package com.utils;
 
 import static io.restassured.RestAssured.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.constant.Verb;
 import com.pojo.IBody;
 import com.pojo.LoginPOJO;
 

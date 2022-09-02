@@ -35,7 +35,7 @@ public class InwarrantyCreateJobTest {
 	private com.pojo.CustomerPOJO customerInfoPassed;
 	private int customerId;
 
-	@BeforeTest(description = "intializing  the baseURI, creating the testData for api testing", alwaysRun = true) // before will be																						// called befo																							// every@Test
+	@BeforeClass(description = "intializing  the baseURI, creating the testData for api testing", alwaysRun = true) // before will be																						// called befo																							// every@Test
 																									// called before
 																									// every@Test
 	public void setup() {

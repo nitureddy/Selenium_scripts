@@ -10,6 +10,7 @@ import org.hamcrest.Matchers;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -19,13 +20,13 @@ import com.utils.TestUtil;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 
-public class CreateJobTest extends TestBase {
+public class CreateJobTest{
 
 	private String token;
 	private CreateJobPOJO createJobPOJO;
 	private String job_Number;
 
-	@BeforeTest(description = "intializing  the baseURI, creating the testData for api testing", alwaysRun = true) // before will be																						// called befo																							// every@Test
+	@BeforeClass(description = "intializing  the baseURI, creating the testData for api testing", alwaysRun = true) // before will be																						// called befo																							// every@Test
 	public void setup() {
 		baseURI = "http://139.59.91.96:9000";
 		createJobPOJO = TestUtil.getCreateJobDataWithFaker();
@@ -43,7 +44,7 @@ public class CreateJobTest extends TestBase {
 		myHeaderList.add(new Header("content-type", "application/json"));
 		Object d = ctx.getAttribute("FDToken");
 		//System.out.println("Inside Create Job Test" + (String) d);
-		myHeaderList.add(new Header("Authorization", tokenMap.get("FD")));
+		myHeaderList.add(new Header("Authorization", token));
 		//myHeaderList.add(new Header("Authorization", (String) d));
 
 		job_Number = given().when().headers(new Headers(myHeaderList)).and().body(createJobPOJO.toJson()).and()

@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.pojo.LoginPOJO;
+import com.utils.TestBase;
 import com.utils.TestUtil;
 
 import io.restassured.http.Header;

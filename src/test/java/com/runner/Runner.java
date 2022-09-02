@@ -47,32 +47,56 @@ public class Runner {
 		// TODO Auto-generated method stub
 		System.out.println("Create a Custom dynamic testng Xml file ");
 
-		TestNG mytestNg = new TestNG();
+		TestNG myTestNG = new TestNG();
 
-		// Create a test suite
-		XmlSuite myXmlSuite = new XmlSuite();
-		myXmlSuite.setName(name + " Suite");
+		// Create an instance of XML Suite and assign a name for it.
+		XmlSuite mySuite = new XmlSuite();
+		mySuite.setName(name + "_Suite");
 
-		// Create Test
-		XmlTest myXmltest = new XmlTest();
-		myXmltest.setName(name + "Test");
-		System.out.println("com." + component + ".test2");
-		XmlPackage myxmlpackage = new XmlPackage("com." + component + ".test");
+		// Create an instance of XmlTest and assign a name for it.
+		XmlTest myTest = new XmlTest(mySuite);
+		myTest.setName(name + "_MyTest");
 
-		List<XmlPackage> mypackageList = new ArrayList<XmlPackage>();
-		mypackageList.add(myxmlpackage);
-		myXmltest.setPackages(mypackageList);
-		myXmltest.addIncludedGroup("sanity");
+		// Add any parameters that you want to set to the Test.
+		// myTest.setParallel(ParallelMode.TRUE);
 
-		List<XmlTest> myTestList = new ArrayList<XmlTest>();
-		myTestList.add(myXmltest);
+//		if (component.equalsIgnoreCase("ui")) { // Used for the UI Test
+//			HashMap<String, String> data = new HashMap<String, String>();
+//			data.put("env", remoteTest);
+//			myTest.setParameters(data);
+//			System.out.println("Hiii");
+//		}
+		// Create a list which can contain the classes that you want to run.
+//		List<XmlClass> myClasses = new ArrayList<XmlClass>();
+//		myClasses.add(new XmlClass("com.api.test.ProductAPITestWithExcelFile"));
+//Running all Package
+		XmlPackage xmlPackage1 = new XmlPackage("com." + component + ".tests");
+		List<XmlPackage> myPackage = new ArrayList<XmlPackage>();
+		myPackage.add(xmlPackage1);
+		System.out.println("com." + component + ".tests");
 
-		List<XmlSuite> mySuiteList = new ArrayList<XmlSuite>();
-		mySuiteList.add(myXmlSuite);
+		// Assign that to the XmlTest Object created earlier.
+		// myTest.setXmlClasses(myClasses);
+		myTest.setPackages(myPackage);
 
-		mytestNg.setXmlSuites(mySuiteList);
+		 myTest.addIncludedGroup("e2e"); // *************
+		// Create a list of XmlTests and add the Xmltest you created earlier to it.
+		List<XmlTest> myTests = new ArrayList<XmlTest>();
+		myTests.add(myTest);
 
-		mytestNg.run();
+		// add the list of tests to your Suite.
+		mySuite.setTests(myTests);
+
+		// Add the suite to the list of suites.
+		List<XmlSuite> mySuites = new ArrayList<XmlSuite>();
+		mySuites.add(mySuite);
+
+		// Set the list of Suites to the testNG object you created earlier.
+		myTestNG.setXmlSuites(mySuites);
+
+		// invoke run() - this will run your class.
+		myTestNG.run();
+
 	}
 
 	private static boolean verifyEnvType(String env) {

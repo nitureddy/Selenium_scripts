@@ -1,4 +1,4 @@
-package com.api.test2;
+package com.constant;
 
 public enum Verb {
 GET,POST,PUT,DELETE

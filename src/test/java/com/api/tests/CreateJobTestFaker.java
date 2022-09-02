@@ -24,7 +24,7 @@ public class CreateJobTestFaker {
 	private CreateJobPOJO createJobPOJO;
 	private String job_Number;
 
-	@BeforeTest(description = "intializing  the baseURI, creating the testData for api testing", alwaysRun = true) // before will be																						// called befo																							// every@Test
+	@BeforeClass(description = "intializing  the baseURI, creating the testData for api testing", alwaysRun = true) // before will be																						// called befo																							// every@Test
 																									// called before
 																									// every@Test
 	public void setup() {

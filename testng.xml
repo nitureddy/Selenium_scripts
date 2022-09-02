@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="CreateJob Suite" guice-stage="DEVELOPMENT">
-	<test thread-count="5" name="CreateJob TEst">
-		<classes>
-			<class name="com.api.tests.LoginTest"></class>
-			<class name="com.api.tests.CreateJobFakerTest"></class>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-			
-		</classes>
-	</test> 
-</suite> 
+<suite name="dev_sanity_api_Suite">
+  <test name="dev_sanity_api_MyTest">
+    <packages>
+      <package name="com.api.tests"/>
+    </packages>
+  </test> <!-- dev_sanity_api_MyTest -->
+</suite> <!-- dev_sanity_api_Suite -->
+            
