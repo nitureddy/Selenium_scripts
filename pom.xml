@@ -59,6 +59,14 @@
 			<version>7.5.0</version>
 			<scope>test</scope>
 		</dependency>
+		
+		
+		 <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-testng</artifactId>
+      <version>6.10.4</version>
+    </dependency>
+		
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>

@@ -1,6 +1,7 @@
 package com.POJOAlreadyCreatedByMahesh;
 
 import com.google.gson.Gson;
+import com.pojo.IBody;
 
 public class FDLoginPOJO implements IBody {
 	private String username;
