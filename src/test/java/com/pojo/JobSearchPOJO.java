@@ -1,19 +1,21 @@
 package com.pojo;
 
-public class JobSearchPOJO {
+import com.google.gson.Gson;
 
-	private int searchText;
+public class JobSearchPOJO implements IBody {
 
-	public JobSearchPOJO(int searchText) {
+	private String searchText;
+
+	public JobSearchPOJO(String searchText) {
 		super();
-		this.searchText = searchText;
+		this.searchText = "JOB_" + searchText;
 	}
 
-	public int getSearchText() {
+	public String getSearchText() {
 		return searchText;
 	}
 
-	public void setSearchText(int searchText) {
+	public void setSearchText(String searchText) {
 		this.searchText = searchText;
 	}
 
@@ -21,7 +23,12 @@ public class JobSearchPOJO {
 	public String toString() {
 		return "JobSearchPOJO [searchText=" + searchText + "]";
 	}
-	
-	
-	
+
+	public String toJson() {
+		// TODO Auto-generated method stub
+		JobSearchPOJO j = new JobSearchPOJO(searchText);
+		Gson g = new Gson();
+		return g.toJson(j);
+	}
+
 }
