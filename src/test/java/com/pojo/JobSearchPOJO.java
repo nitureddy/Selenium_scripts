@@ -8,7 +8,7 @@ public class JobSearchPOJO implements IBody {
 
 	public JobSearchPOJO(String searchText) {
 		super();
-		this.searchText = "JOB_" + searchText;
+		this.searchText =   searchText;
 	}
 
 	public String getSearchText() {
@@ -26,8 +26,10 @@ public class JobSearchPOJO implements IBody {
 
 	public String toJson() {
 		// TODO Auto-generated method stub
-		JobSearchPOJO j = new JobSearchPOJO(searchText);
+		JobSearchPOJO j = new JobSearchPOJO("JOB_"+searchText);
+		System.out.println("*************"+searchText);
 		Gson g = new Gson();
+		System.out.println(g.toJson(j));
 		return g.toJson(j);
 	}
 

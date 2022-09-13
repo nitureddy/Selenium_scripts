@@ -10,8 +10,10 @@ import org.hamcrest.Matchers;
 import org.testng.Assert;
 
 import com.POJOAlreadyCreatedByMahesh.FDLoginPOJO;
+import com.pojo.AssignJobPOJO;
 import com.pojo.CreateJobPOJO;
 import com.pojo.JobSearchPOJO;
+import com.pojo.LoginPOJO;
 import com.utils.TestUtil;
 
 import io.cucumber.java.en.Given;
@@ -62,7 +64,7 @@ public class InwarrantyFeature2 {
 		// Write code here that turns the phrase above into concrete actions
 		job_Number = response.then().log().all().assertThat().statusCode(200).and()
 				.body(Matchers.containsString("Job created successfully.")).extract().jsonPath().getInt("data.id");
-
+		System.out.println(job_Number);
 	}
 
 	@Then("job is in pending for assignment stage")
@@ -71,16 +73,17 @@ public class InwarrantyFeature2 {
 		List<Header> myHeaderList = new ArrayList<Header>();
 		myHeaderList.add(new Header("content-type", "application/json"));
 		myHeaderList.add(new Header("Authorization", fdToken));
-		String mst_action_status = given().when().headers(new Headers(myHeaderList)).and()
-				.body(new JobSearchPOJO(job_Number + "").toJson()).and().post("/v1/job/search").then().assertThat()
-				.log().all().extract().jsonPath().get("data[0].mst_action_status");
-		Assert.assertEquals(mst_action_status, "Pending For Assignment");
+		response = given().when().headers(new Headers(myHeaderList)).and().body(new JobSearchPOJO(job_Number+"").toJson()).and()
+				.post("/v1/job/search");
+		String actionStatus = response.then().log().all().assertThat().statusCode(200).and()
+				.body(Matchers.containsString("Success")).extract().jsonPath().getString("data[0].mst_action_status");
+		Assert.assertEquals(actionStatus, "Pending For Job Assignment");
 	}
 
 	@When("supvisor logs in")
 	public void supvisor_logs_in() {
 		supToken = given().when().header(new Header("content-type", "application/json")).and()
-				.body(new FDLoginPOJO("iamsup", "password").toJson()).and().post("/v1/login").then().log().all().and()
+				.body(new LoginPOJO("iamsup", "password").toJson()).and().post("/v1/login").then().log().all().and()
 				.assertThat().statusCode(200).and().assertThat().body(Matchers.containsString("Success")).and()
 				.extract().jsonPath().getString("data.token");
 	}
@@ -92,9 +95,8 @@ public class InwarrantyFeature2 {
 		List<Header> myHeaderList = new ArrayList<Header>();
 		myHeaderList.add(new Header("content-type", "application/json"));
 		myHeaderList.add(new Header("Authorization", supToken));
-		given().when().header(new Header("content-type", "application/json")).and()
-				.body("{\r\n" + "    \"job_id\":" + job_Number + "\"," + "    \"engineer_id\": {{engid}}\r\n" + "}")
-				.and().post("/v1/engineer/assign").then().assertThat().log().all()
+		given().when().headers(new Headers(myHeaderList)).and().body(new AssignJobPOJO(job_Number, 2).toJson()).and()
+				.post("/v1/engineer/assign").then().assertThat().log().all()
 				.body(Matchers.containsString("Engineer assigned successfully")).and().statusCode(200);
 
 	}
@@ -105,10 +107,11 @@ public class InwarrantyFeature2 {
 		List<Header> myHeaderList = new ArrayList<Header>();
 		myHeaderList.add(new Header("content-type", "application/json"));
 		myHeaderList.add(new Header("Authorization", fdToken));
-		String mst_action_status = given().when().headers(new Headers(myHeaderList)).and()
-				.body(new JobSearchPOJO(job_Number + "").toJson()).and().post("/v1/job/search").then().assertThat()
-				.log().all().extract().jsonPath().getString("data[0].mst_action_status");
-		Assert.assertEquals(mst_action_status, "Pending For Repair");
+		response = given().when().headers(new Headers(myHeaderList)).and().body(new JobSearchPOJO(job_Number+"").toJson()).and()
+				.post("/v1/job/search");
+		String actionStatus = response.then().log().all().assertThat().statusCode(200).and()
+				.body(Matchers.containsString("Success")).extract().jsonPath().getString("data[0].mst_action_status");
+		Assert.assertEquals(actionStatus, "Pending For Repair");
 
 	}
 
