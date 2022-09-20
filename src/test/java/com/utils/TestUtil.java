@@ -70,6 +70,29 @@ public class TestUtil {
 		System.out.println(createJobPOJO.toJson());
 		return createJobPOJO;
 	}
+	
+	
+	public static CreateJobPOJO getCustomerAndProductData() {
+		// String imei = createIMEINumber();
+		Faker faker = new Faker(Locale.ENGLISH);
+		String imei = faker.numerify("##############");
+		CustomerPOJO customerInfoPOJO = new CustomerPOJO(faker.address().firstName(), faker.address().lastName(),
+				faker.phoneNumber().cellPhone(), faker.phoneNumber().cellPhone(), faker.internet().emailAddress(), "");
+		CustomerAddressPOJO customerAddressPOJO = new CustomerAddressPOJO("101", "abc apt", "street name1",
+				"near ayyapa temple", "kukatpally", "500072", "India", "Andhra Pradesh");
+		CustomerProductPOJO customerProductPOJO = new CustomerProductPOJO("2022-04-05T18:30:00.000Z", imei, imei, imei,
+				"2022-04-05T18:30:00.000Z", 1, 2);
+		ProblemPOJO[] problems = new ProblemPOJO[3];
+		problems[0] = new ProblemPOJO(1, "battery drains quickly");
+		problems[1] = new ProblemPOJO(4, "camera not working");
+		problems[2] = new ProblemPOJO(3, "app crashes");
+
+		CreateJobPOJO createJobPOJO = new CreateJobPOJO(0, 2, 1, 1, customerInfoPOJO, customerAddressPOJO,
+				customerProductPOJO, problems);
+		System.out.println(createJobPOJO.toJson());
+		return createJobPOJO;
+	}
+	
 
 	public static String generateToken() {
 		String token = given().when().header(new Header("content-type", "application/json")).and()

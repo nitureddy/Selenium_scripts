@@ -15,14 +15,14 @@ Feature: Inwarranty flow of the application via backend
    And job is in pending for assignment stage
    And HTTP status code should be 200
    
-   Scenario: As a user of the application supervisior should able to assign the job to engineer
+  Scenario: As a user of the application supervisior should able to assign the job to engineer
    When supvisor logs in 
    And He should assign the job to the engineer
    Then the job status should change to Pending For Repair stage
    And HTTP status code should be 200
    
    
-    Scenario: As a user of the application engineer should be able to mark the job complete with proper remark
+  Scenario: As a user of the application engineer should be able to mark the job complete with proper remark
    When Engineer logs in 
    And He marks the job complete with proper remark
    Then the job status should change to Pending For QC stage
