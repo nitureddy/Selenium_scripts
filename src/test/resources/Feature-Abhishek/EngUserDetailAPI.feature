@@ -1,15 +1,13 @@
 #Author: Abhishek Yadav
-#Keywords Summary : Eng User Details 
+#Keywords Summary : Engineer User Details 
 
 
-Feature: Eng User Details API Feature File
-As a user of the application verify that I login as Eng.
+Feature: Engineer User Details API Feature
+As a Engineer user of the application. I should be able to verify Engineer user details using Engineer authorization token.
 
-
-  Scenario:  Eng User Detail API Scenario
-    Given the endpoint and the Sup authorization token
-    When Eng User Detail api request is made
-    And the base url is "139.59.91.96:9000"
+  Scenario:  Engineer User Detail API Scenario
+   Given the Base URL is "139.59.91.96:9000" and the endpoint is "/v1/userdetails" and the Engineer authorization token
+    When Engineer User Detail api request is made
     Then response status code should be 200
     And response body should be in JSON format
     And response body should contain message "Success"
