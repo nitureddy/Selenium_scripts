@@ -2,16 +2,15 @@
 #Keywords Summary : Assign Job 
 
 
-Feature: Assign Job API Feature File
-As a Sup user of the application Assign job to the Engineer.
+Feature: Assign Job API Feature 
+As a Supervior user of the application. I should be able to assign job to the Engineer using jobId and engineerId
 
 
   Scenario:  Assign Job API Scenario
-    Given the endpoint and the Sup authorization token
-		And the contant-Type should be in "application/Json"
-		And entering the job_number and engineer_id
+    Given the Base URL is "139.59.91.96:9000 " endpoint is "v1/assign" and the supervior authorization token
+		And the Header should content-Type should be in "application/Json"
+		And the request body should contain a json object with jobId and engineer ID
     When Assign Jobs api request is made
-    And the base url is "139.59.91.96:9000"
     Then response status code should be 200
     And response body should be in JSON format
     And response body should contain message and data   
