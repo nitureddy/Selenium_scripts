@@ -7,6 +7,7 @@ As a Supervior user of the application. I should be able to assign job to the En
 
 
   Scenario:  Assign Job API Scenario
+  	Supervior will login into the application and assign to the job to engineer 
     Given the Base URL is "139.59.91.96:9000" endpoint is "v1/assign" and the supervior authorization token
 		And the Header should content-Type should be in "application/Json"
 		And the request body should contain a json object with jobId and engineer ID
