@@ -16,10 +16,14 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.hamcrest.Matchers;
 
+import com.api.pojo.PhoenixLoginCredentialsPOJO;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import com.runner.Runner;
+import static io.restassured.RestAssured.*;
+import io.restassured.http.Header;
 
 public final class TestUtils {
 
@@ -53,10 +57,19 @@ public final class TestUtils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 		String data = prop.getProperty(key);
 		return data;
+	}
+
+	public static String generateToken() {
+		String token = given().when().header(new Header("content-type", "application/json")).and()
+				.body(new PhoenixLoginCredentialsPOJO("iamfd", "password").toJson()).and().post("v1/login").then().log()
+				.all().and().assertThat().statusCode(200).and().assertThat().body(Matchers.containsString("Success"))
+				.and().extract().jsonPath().getString("data.token");
+		System.out.println("-------------" + token);
+		return token;
+
 	}
 
 	public static String[][] getDataFromExcel(String fileName, String sheetName) throws IOException {
@@ -68,7 +81,7 @@ public final class TestUtils {
 		int totalNumberOfColsinTheSheet = rowHeaders.getLastCellNum();
 		XSSFRow myRow;
 		XSSFCell myCell;
-		
+
 		String[][] data = new String[lastRowIndex][totalNumberOfColsinTheSheet];
 
 		for (int row = 1; row <= lastRowIndex; row++) {
