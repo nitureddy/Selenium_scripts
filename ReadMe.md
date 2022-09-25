@@ -1,54 +1,78 @@
-# PhoenixAutomationFramework
-
-Phoenix Automation Framework is Java 1.8 Based Test Automation Framework: 
-
-
-## Author:
-Ameya 
+# Phoenix Automation Framework
+## _Test Automation Academy Project_
 
 
-## Components of the Framework
-Pojo: Pojos are used in Serialization and Deserialization with the help Gson library! 2.9
-Rest Assured:  Testing API Requests
-TestNG: Control the test execution
-OpenCSV: Read Test Data from CSV file
-		:Keep the testData Files in the testData Folder
-## Dependencies
 
-All the dependencies are added inside pom.xml
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
+
+
+- Java 1.8
+- Maven
+- TestNG
+- Cucumber
+- Rest Assured
+- Selenium
+
+## Features
+
+- Performs UI and API Automated Tests for both Inwarranty Flow and OutWarranty Flow
+- Integrated with Jenkins CI for Continious Testing for UI and API Component 
+- Categorizing the Tests in both TestNG and Cucumber
+- Performs Parallel Testing and Isolated Tests
+
+
+## Tech
+
+Framework uses a number of dependencies to work properly:
+
+- Selenium WebDriver
+- TestNG
+- Cucumber
+- Cucumber TestNG
+- Rest Assured
+- OpenCSV
+- Apache POI
+- MySQL JDBC Connector
+- JsonSchemaValidator
+- Java-Faker
+- Gson
+
+## Adding New Dependencies
+
+New Dependencies can be added in pom.xml at root level under dependencies tag
+
+Example
 ```
-Example: Paste the dependency inside the dependencies
-	<dependencies>
-
-		<!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
-		<dependency>
+<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
 			<version>5.1.1</version>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
-
 ```
 
-## Usage
 
-```python
-import foobar
 
-# returns 'words'
-foobar.pluralize('word')
+## Plugins
 
-# returns 'geese'
-foobar.pluralize('goose')
+Maven Plugins used in the Project
 
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+| Plugin | README |
+| ------ | ------ |
+| Maven SureFire | https://maven.apache.org/surefire/maven-surefire-plugin |
+| Exec Maven Plugin | https://www.mojohaus.org/exec-maven-plugin/ |
+
+To Run the Automated Test for TestNG from cli...
+
+```sh
+mvn -Dexec.classpathScope=test  -Dexec.arguments="dev,api,sanity" test-compile  exec:java -Dexec.cleanupDaemonThreads=false -X
 ```
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Please make sure to update tests as appropriate.
+To Run the Automated Test for Cucumber from cli...
+
+```sh
+mvn test -X
+```
 
