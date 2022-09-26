@@ -2,6 +2,7 @@ package com.api.pojo;
 
 import com.google.gson.Gson;
 
+
 public final class CreateNewJob implements IBodyJson {
 	private int mst_service_location_id;
     private int mst_platform_id;

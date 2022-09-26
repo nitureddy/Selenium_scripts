@@ -33,7 +33,14 @@ public final class TestUtils {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'.000Z'");
 		return dateFormat.format(d1);
 	}
-
+	/**
+	 * Generates a random IMEI Number for Job Creation
+	 * {@code TestUtils} is a <b>final</b> class.
+	 * generateIMEI (static functions)
+	 * <b>returns</b>: a random IMEI number
+	 * @author Jatin jatin@testautomationacademy.in
+	 *
+	 */
 	public static String generateIMEI() {
 		Random imeinumber = new Random();
 		String imei = "7867785975323" + imeinumber.nextInt(1000);
@@ -61,7 +68,14 @@ public final class TestUtils {
 		String data = prop.getProperty(key);
 		return data;
 	}
-
+	/**
+	 * Generates a random Token for Authorization Purpose
+	 * {@code TestUtils} is a <b>final</b> class.
+	 * generateToken (static functions)
+	 * <b>returns</b>:  random Token for Authorization.
+	 * @author Jatin jatin@testautomationacademy.in
+	 *
+	 */
 	public static String generateToken() {
 		String token = given().when().header(new Header("content-type", "application/json")).and()
 				.body(new PhoenixLoginCredentialsPOJO("iamfd", "password").toJson()).and().post("v1/login").then().log()

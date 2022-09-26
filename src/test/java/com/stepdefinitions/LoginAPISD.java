@@ -14,6 +14,20 @@ import static org.hamcrest.Matchers.*;
 
 import com.api.pojo.PhoenixLoginCredentialsPOJO;
 
+/**
+ * 
+ * The {@code LoginAPISD} class the Step Definition for the LoginAPI.geature
+ * 
+ * <p>
+ * If you want to add a StepDefinition please create them inside
+ * src/test/java/com.stepdefinitions. Please attach the featuresfiles in the
+ * src/test/resoures/features
+ * </p>
+ * 
+ * @author Jatin
+ * @tag UAT Test
+ *
+ */
 public class LoginAPISD {
 	private String endpoint;
 	private RequestSpecification request;
@@ -54,7 +68,8 @@ public class LoginAPISD {
 
 	@Then("response body should be in JSON format")
 	public void response_body_should_be_in_json_format() {
-		jsonpath = response.then().assertThat().header("Content-Type", "application/json; charset=utf-8").extract().jsonPath();
+		jsonpath = response.then().assertThat().header("Content-Type", "application/json; charset=utf-8").extract()
+				.jsonPath();
 	}
 
 	@Then("response body should contain message as {string}")

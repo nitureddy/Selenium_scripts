@@ -3,7 +3,7 @@
 Feature: Login API Feature
   As a user of the application when I try to login using the right credentials the login api should generate a token.
 
-  Scenario: Login API Scenario
+ Scenario: Login API Scenario
     User is making login api request using valid credentials
 
     Given the Base URL is "http://139.59.91.96:9000" and the endpoint is "/v1/login"
