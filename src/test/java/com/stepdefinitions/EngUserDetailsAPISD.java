@@ -3,7 +3,7 @@ package com.stepdefinitions;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
-import org.hamcrest.Matchers;
+import static org.hamcrest.Matchers.*;
 
 import com.utils.TestUtils;
 
@@ -34,8 +34,8 @@ public class EngUserDetailsAPISD {
 	}
 
 	@Then("response statuscode should be {int}")
-	public void response_statuscode_should_be(Integer status) {
-		response.then().log().all().assertThat().statusCode(status);
+	public void response_statuscode_should_be(Integer statuscode) {
+		response.then().log().all().assertThat().statusCode(statuscode);
 	}
 
 	@Then("response body should be in JSON")
@@ -45,27 +45,27 @@ public class EngUserDetailsAPISD {
 
 	@Then("response Body should contain message {string}")
 	public void response_body_should_contain_message(String message) {
-		response.then().assertThat().body(Matchers.containsString(message));
+		response.then().assertThat().body(containsString(message));
 	}
 
 	@Then("response Body should contain login_id {string}")
 	public void response_body_should_contain_login_id(String id) {
-		response.then().assertThat().body(Matchers.containsString(id));
+		response.then().assertThat().body(containsString(id));
 	}
 
 	@Then("response body should contain email id {string}")
 	public void response_body_should_contain_email_id(String email) {
-		response.then().assertThat().body(Matchers.containsString(email));
+		response.then().assertThat().body(containsString(email));
 	}
 
 	@Then("response Body should contain mobile_number {string}")
 	public void response_body_should_contain_mobile_number(String mobileNo) {
-		response.then().assertThat().body(Matchers.containsString(mobileNo));
+		response.then().assertThat().body(containsString(mobileNo));
 	}
 
 	@Then("response Should be less than {int} ms")
 	public void response_should_be_less_than_ms(long responseTime) {
-		response.then().assertThat().time(Matchers.lessThan(responseTime));
+		response.then().assertThat().time(lessThan(responseTime));
 	}
 
 
