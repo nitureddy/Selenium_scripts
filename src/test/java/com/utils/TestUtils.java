@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.Random;
 
@@ -18,14 +19,89 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hamcrest.Matchers;
 
+import com.api.pojo.CreateNewJob;
+import com.api.pojo.Customer;
+import com.api.pojo.CustomerAddress;
+import com.api.pojo.CustomerProduct;
+import com.api.pojo.IBodyJson;
 import com.api.pojo.PhoenixLoginCredentialsPOJO;
+import com.api.pojo.Problems;
+import com.github.javafaker.Faker;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import com.runner.Runner;
 import static io.restassured.RestAssured.*;
 import io.restassured.http.Header;
 
+/**
+ * 1.Contains common utils functions to write tests<br>
+ * 2.Generates tokens for the api requests <br>
+ * 3.Reading properties <br>
+ * 4.Reading Files like (CSV or Excel) <br>
+ * 
+ * @author Jatin
+ *
+ */
 public final class TestUtils {
+
+	/**
+	 * Generates a constant fake data for create job api request with userInfo:<br>
+	 * <b>Name</b> : vaibhav <br>
+	 * <b>Last Name</b> : Kalshetti <br>
+	 * <b>Contact Number</b> : 9705593183 <br>
+	 * <b>Email Address</b> : vaibhav@gmail.com <br>
+	 * <b>return</b> Object reference of CreateNewJob POJO <br>
+	 * <br>
+	 * 
+	 * @author Jatin jatin@testautomationacademy.in
+	 *
+	 */
+	public static CreateNewJob getCreateJobData() {
+		Customer customerInfoPOJO = new Customer("vaibhav", "Kalshetti", "9705593183", "970555445", "vaibhav@gmail.com",
+				"");
+		CustomerAddress customerAddressPOJO = new CustomerAddress("101", "abc apt", "street name1",
+				"near ayyapa temple", "kukatpally", "500072", "India", "Andhra Pradesh");
+		CustomerProduct customerProductPOJO = new CustomerProduct("2022-04-05T18:30:00.000Z", "62344567123411",
+				"62344567123411", "62344567123411", "2022-04-05T18:30:00.000Z", 1, 2);
+		Problems[] problems = new Problems[3];
+		problems[0] = new Problems(1, "battery drains quickly");
+		problems[1] = new Problems(4, "camera not working");
+		problems[2] = new Problems(3, "app crashes");
+
+		CreateNewJob createJobPOJO = new CreateNewJob(0, 2, 1, 1, customerInfoPOJO, customerAddressPOJO,
+				customerProductPOJO, problems);
+		System.out.println(createJobPOJO.toJson());
+		return createJobPOJO;
+	}
+
+	/**
+	 * Generates fake data for create job api request <br>
+	 * <b>return</b> Object reference of CreateNewJob POJO <br>
+	 * 
+	 * @author Jatin jatin@testautomationacademy.in
+	 *
+	 */
+
+	public static CreateNewJob getCreateJobDataWithFaker() {
+		// String imei = createIMEINumber();
+		Faker faker = new Faker(Locale.ENGLISH);
+		String imei = faker.numerify("##############");
+		Customer customerInfoPOJO = new Customer(faker.address().firstName(), faker.address().lastName(),
+				faker.phoneNumber().cellPhone(), faker.phoneNumber().cellPhone(), faker.internet().emailAddress(), "");
+		CustomerAddress customerAddressPOJO = new CustomerAddress("101", "abc apt", "street name1",
+				"near ayyapa temple", "kukatpally", "500072", "India", "Andhra Pradesh");
+		CustomerProduct customerProductPOJO = new CustomerProduct("2022-04-05T18:30:00.000Z", imei, imei, imei,
+				"2022-04-05T18:30:00.000Z", 1, 2);
+		Problems[] problems = new Problems[3];
+		problems[0] = new Problems(1, "battery drains quickly");
+		problems[1] = new Problems(4, "camera not working");
+		problems[2] = new Problems(3, "app crashes");
+
+		CreateNewJob createJobPOJO = new CreateNewJob(0, 2, 1, 1, customerInfoPOJO, customerAddressPOJO,
+				customerProductPOJO, problems);
+		System.out.println(createJobPOJO.toJson());
+		return createJobPOJO;
+	}
 
 	public static String timeStampforJobCreation() {
 
@@ -33,11 +109,12 @@ public final class TestUtils {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'.000Z'");
 		return dateFormat.format(d1);
 	}
+
 	/**
-	 * Generates a random IMEI Number for Job Creation
-	 * {@code TestUtils} is a <b>final</b> class.
-	 * generateIMEI (static functions)
-	 * <b>returns</b>: a random IMEI number
+	 * Generates a random IMEI Number for Job Creation {@code TestUtils} is a
+	 * <b>final</b> class. generateIMEI (static functions) <b>returns</b>: a random
+	 * IMEI number <br>
+	 * 
 	 * @author Jatin jatin@testautomationacademy.in
 	 *
 	 */
@@ -47,7 +124,19 @@ public final class TestUtils {
 		return imei;
 	}
 
-	public static String getProperties(String key) {
+	/**
+	 * Helps in reading Properties value for Environment <br>
+	 * Properties File are stored in config folder <br>
+	 * Access Information like: <br>
+	 * <b> 1.BaseURL <br>
+	 * </b> <b> 2.DB Info <br>
+	 * </b> <b> 3.BrowserStack Information <br>
+	 * </b>
+	 * 
+	 * @author Jatin jatin@testautomationacademy.in
+	 *
+	 */
+	public static String getProperties(String keyName) {
 		Runner.env = "dev";
 		File myFile = new File(System.getProperty("user.dir") + "//config//" + Runner.env + ".properties");
 		Reader reader = null;
@@ -65,14 +154,15 @@ public final class TestUtils {
 			e.printStackTrace();
 		}
 
-		String data = prop.getProperty(key);
+		String data = prop.getProperty(keyName);
 		return data;
 	}
+
 	/**
-	 * Generates a random Token for Authorization Purpose
-	 * {@code TestUtils} is a <b>final</b> class.
-	 * generateToken (static functions)
-	 * <b>returns</b>:  random Token for Authorization.
+	 * Generates a random Token for Authorization Purpose {@code TestUtils} is a
+	 * <b>final</b> class. generateToken (static functions) <b>returns</b>: random
+	 * Token for Authorization.
+	 * 
 	 * @author Jatin jatin@testautomationacademy.in
 	 *
 	 */
@@ -81,6 +171,41 @@ public final class TestUtils {
 				.body(new PhoenixLoginCredentialsPOJO("iamfd", "password").toJson()).and().post("v1/login").then().log()
 				.all().and().assertThat().statusCode(200).and().assertThat().body(Matchers.containsString("Success"))
 				.and().extract().jsonPath().getString("data.token");
+		System.out.println("-------------" + token);
+		return token;
+
+	}
+
+	/**
+	 * Generates a random Token for Authorization Purpose {@code TestUtils} is a
+	 * <b>final</b> class. generateToken (static functions) <b>returns</b>: random
+	 * Token for Authorization.
+	 * 
+	 * @author Jatin jatin@testautomationacademy.in
+	 *
+	 */
+	public static String generateUserToken(UserRole role) {
+		IBodyJson body = null;
+		if (role == UserRole.FD) {
+			body = new PhoenixLoginCredentialsPOJO("iamfd", "password");
+		} else if (role == UserRole.ENG) {
+			body = new PhoenixLoginCredentialsPOJO("iameng", "password");
+		}
+
+		else if (role == UserRole.SUP) {
+			body = new PhoenixLoginCredentialsPOJO("iamsup", "password");
+		}
+
+		else if (role == UserRole.QC) {
+			body = new PhoenixLoginCredentialsPOJO("iamqc", "password");
+		}
+
+		else if (role == UserRole.FST) {
+			body = new PhoenixLoginCredentialsPOJO("iamfst1", "password");
+		}
+		String token = given().when().header(new Header("content-type", "application/json")).and().body(body.toJson())
+				.and().post("v1/login").then().log().all().and().assertThat().statusCode(200).and().assertThat()
+				.body(Matchers.containsString("Success")).and().extract().jsonPath().getString("data.token");
 		System.out.println("-------------" + token);
 		return token;
 
