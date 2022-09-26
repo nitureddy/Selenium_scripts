@@ -54,7 +54,7 @@ public class LoginAPISD {
 
 	@Then("response body should be in JSON format")
 	public void response_body_should_be_in_json_format() {
-		jsonpath = response.then().assertThat().header("Content-Type", "application/json").extract().jsonPath();
+		jsonpath = response.then().assertThat().header("Content-Type", "application/json; charset=utf-8").extract().jsonPath();
 	}
 
 	@Then("response body should contain message as {string}")
