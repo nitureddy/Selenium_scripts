@@ -1,18 +1,13 @@
 # Phoenix Automation Framework
 ## _Test Automation Academy Project_
 
-
-
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
-
-
-
 - Java 1.8
 - Maven
 - TestNG
 - Cucumber
 - Rest Assured
 - Selenium
+
 
 ## Features
 
@@ -27,6 +22,7 @@
 Framework uses a number of dependencies to work properly:
 
 - Selenium WebDriver
+-WebDriver Manager
 - TestNG
 - Cucumber
 - Cucumber TestNG
@@ -57,20 +53,23 @@ Example
 ## Plugins
 
 Maven Plugins used in the Project
+<table>
+  <tr><th>Plugin</th><th>README</th></tr>
+  <tr><td>Maven SureFire Plugin- </td><td>https://maven.apache.org/surefire/maven-surefire-plugin </td></tr>
+    <tr><td> Exec Maven Plugin -</td><td>https://www.mojohaus.org/exec-maven-plugin/ </td></tr>
+</table>
 
-| Plugin | README |
-| ------ | ------ |
-| Maven SureFire | https://maven.apache.org/surefire/maven-surefire-plugin |
-| Exec Maven Plugin | https://www.mojohaus.org/exec-maven-plugin/ |
 
-To Run the Automated Test for TestNG from cli...
+
+
+### To Run the Automated Test for TestNG from cli...
 
 ```sh
 mvn -Dexec.classpathScope=test  -Dexec.arguments="dev,api,sanity" test-compile  exec:java -Dexec.cleanupDaemonThreads=false -X
 ```
 
 
-To Run the Automated Test for Cucumber from cli...
+### To Run the Automated Test for Cucumber from cli...
 
 ```sh
 mvn test -X
