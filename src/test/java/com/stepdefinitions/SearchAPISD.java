@@ -50,9 +50,14 @@ public class SearchAPISD {
 
 	@When("Search POST api request is made")
 	public void search_api_request_is_made() {
-
 		response = request.post(endpoint);
 	}
+	@Then("response should be in Json")
+	public void response_should_be_in_json() {
+	    // Write code here that turns the phrase above into concrete actions
+		response.then().extract().jsonPath();
+	}
+
 
 	@Then("the response status code should be {int}")
 	public void the_response_status_code_should_be(Integer statusCode) {
@@ -65,23 +70,23 @@ public class SearchAPISD {
 		// Write code here that turns the phrase above into concrete actions
 		response.then().assertThat().body(Matchers.containsString(body));
 	}
-
-	@Then("the response body should contain the job id")
-	public void the_response_body_should_contain_the_job_id() {
-		// Write code here that turns the phrase above into concrete actions
-
+	
+	@Then("the response body should contain the job number {string}")
+	public void the_response_body_should_contain_the_job_number(String jobnumber) {
+	    // Write code here that turns the phrase above into concrete actions
+		response.then().assertThat().body(Matchers.containsString(jobnumber));
 	}
 
-	@Then("the response body should contain the job_number")
-	public void the_response_body_should_contain_the_job_number() {
-		// Write code here that turns the phrase above into concrete actions
-
+	@Then("the response body should contain the job id {int}")
+	public void the_response_body_should_contain_the_job_id(Integer id) {
+	    // Write code here that turns the phrase above into concrete actions
+		response.then().assertThat().body(Matchers.contains(id));
 	}
 
-	@Then("the response body should be mst_warrenty_status_code")
-	public void the_response_body_should_be_mst_warrenty_status_code() {
-		// Write code here that turns the phrase above into concrete actions
-
+	@Then("the response body should be mst_warrenty_status_code {string}")
+	public void the_response_body_should_be_mst_warrenty_status_code(String warranty) {
+	    // Write code here that turns the phrase above into concrete actions
+		response.then().assertThat().body(Matchers.containsString(warranty));
 	}
 
 	@Then("response should be available in less than {int} ms")
