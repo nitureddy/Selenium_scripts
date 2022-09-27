@@ -7,13 +7,13 @@ As a Supervior user of the application. I should be able to verify Supervior use
 
   Scenario:  Supervior User Detail API Scenario
   	User will login into the application using Supervior login credentials and verify Supervior user details
-	    Given the Base URL is "139.59.91.96:9000" and the endpoint is "/v1/userdetails" and the Supervior authorization token
-	    When Supervior User Detail api request is made
-	    Then response status code should be 200
-	    And response body should be in JSON format
-	    And response body should contain message "Success"
-	    And response body should contain login_id "iamsup"
-	    And response body should contain email_id "email_id": "john@gmail.com"
-	    And response body should contain mobile_number "9988778899"
-	    And response should be available in less than 1000 ms
+	    Given the Base URL is "http://139.59.91.96:9000" and the endpoint is "/v1/userdetails" and the Supervior authorization token
+	    When Supervior User Detail GET api request is made
+	    Then response statusCode should be 200
+	    And response Body should be in Json
+	    And response body should contain Message "Success"
+	    And response body should contain Supervior login id "iamsup"
+	    And response body should contain Supervior email id "john@gmail.com"
+	    And response body should contain Supervior mobile number "9988778899"
+	    And response should be not more than 1000 ms
    

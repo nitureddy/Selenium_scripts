@@ -166,14 +166,33 @@ public final class TestUtils {
 	 * @author Jatin jatin@testautomationacademy.in
 	 *
 	 */
-	public static String generateToken() {
-		String token = given().when().header(new Header("content-type", "application/json")).and()
-				.body(new PhoenixLoginCredentialsPOJO("iamfd", "password").toJson()).and().post("v1/login").then().log()
-				.all().and().assertThat().statusCode(200).and().assertThat().body(Matchers.containsString("Success"))
-				.and().extract().jsonPath().getString("data.token");
-		System.out.println("-------------" + token);
-		return token;
+	public static String generateToken(String role) {
+		if (role.equalsIgnoreCase("FD")) {
+			String token = given().when().header(new Header("content-type", "application/json")).and()
+					.body(new PhoenixLoginCredentialsPOJO("iamfd", "password").toJson()).and().post("v1/login").then().extract().jsonPath().getString("data.token");
+			return token;
+			
+		} else if (role.equalsIgnoreCase("SUP")) {
+			String token = given().when().header(new Header("content-type", "application/json")).and()
+					.body(new PhoenixLoginCredentialsPOJO("iamsup", "password").toJson()).and().post("v1/login").then().extract().jsonPath().getString("data.token");
+			return token;
+			
+			
+		} else if (role.equalsIgnoreCase("ENG")) {
+			String token = given().when().header(new Header("content-type", "application/json")).and()
+					.body(new PhoenixLoginCredentialsPOJO("iameng", "password").toJson()).and().post("v1/login").then().extract().jsonPath().getString("data.token");
+			return token;
+		} else if (role.equalsIgnoreCase("QC")) {
+			String token = given().when().header(new Header("content-type", "application/json")).and()
+					.body(new PhoenixLoginCredentialsPOJO("iamqc", "password").toJson()).and().post("v1/login").then().extract().jsonPath().getString("data.token");
+			return token;
+		} else {
+			String token = given().when().header(new Header("content-type", "application/json")).and()
+					.body(new PhoenixLoginCredentialsPOJO("iamfd", "password").toJson()).and().post("v1/login").then().extract().jsonPath().getString("data.token");
+			return token;
 
+		}
+		
 	}
 
 	/**

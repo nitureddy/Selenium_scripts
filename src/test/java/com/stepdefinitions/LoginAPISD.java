@@ -83,8 +83,8 @@ public class LoginAPISD {
 	}
 
 	@Then("the execution time should be less then {int} ms")
-	public void the_execution_time_should_be_less_then_ms(long executiontime) {
-		response.then().assertThat().time(lessThan(executiontime));
+	public void the_execution_time_should_be_less_then_ms(long responseTime) {
+		response.then().assertThat().time(lessThan(responseTime));
 	}
 
 }

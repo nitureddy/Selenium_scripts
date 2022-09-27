@@ -30,7 +30,7 @@ public class SearchAPISD {
 	public void the_base_url_is_and_the_endpoint_is_and_authorization_token(String url, String endpoint) {
 		baseURI = url;
 		this.endpoint = endpoint;
-		token = TestUtils.generateToken();
+		token = TestUtils.generateToken("fd");
 		request = given();
 	}
 
