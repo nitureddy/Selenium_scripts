@@ -57,12 +57,17 @@ public final class TestUtils {
 	 *
 	 */
 	public static CreateNewJob getCreateJobData() {
-		Customer customerInfoPOJO = new Customer("vaibhav", "Kalshetti", "9705593183", "970555445", "vaibhav@gmail.com",
-				"");
-		CustomerAddress customerAddressPOJO = new CustomerAddress("101", "abc apt", "street name1",
-				"near ayyapa temple", "kukatpally", "500072", "India", "Andhra Pradesh");
-		CustomerProduct customerProductPOJO = new CustomerProduct("2022-04-05T18:30:00.000Z", "62344567123411",
-				"62344567123411", "62344567123411", "2022-04-05T18:30:00.000Z", 1, 2);
+		Faker faker = new Faker();
+		String firstname = faker.name().firstName();
+		String lastname = faker.name().lastName();
+		String emailid = lastname + firstname + "001@gmail.com";
+		String imei = faker.numerify("###############");
+		Customer customerInfoPOJO = new Customer(firstname, lastname, "9703334456", "970555445", emailid,
+				emailid);
+		CustomerAddress customerAddressPOJO = new CustomerAddress(faker.address().buildingNumber(), "abc apt", "street name1",
+				faker.address().streetName(), faker.address().cityName(), "500072", "India", "Andhra Pradesh");
+		CustomerProduct customerProductPOJO = new CustomerProduct(timeStampforJobCreation(), imei,
+				imei, imei, timeStampforJobCreation(), 1, 2);
 		Problems[] problems = new Problems[3];
 		problems[0] = new Problems(1, "battery drains quickly");
 		problems[1] = new Problems(4, "camera not working");
@@ -73,36 +78,7 @@ public final class TestUtils {
 		System.out.println(createJobPOJO.toJson());
 		return createJobPOJO;
 	}
-
-	/**
-	 * Generates fake data for create job api request <br>
-	 * <b>return</b> Object reference of CreateNewJob POJO <br>
-	 * 
-	 * @author Jatin jatin@testautomationacademy.in
-	 *
-	 */
-
-	public static CreateNewJob getCreateJobDataWithFaker() {
-		// String imei = createIMEINumber();
-		Faker faker = new Faker(Locale.ENGLISH);
-		String imei = faker.numerify("##############");
-		Customer customerInfoPOJO = new Customer(faker.address().firstName(), faker.address().lastName(),
-				faker.phoneNumber().cellPhone(), faker.phoneNumber().cellPhone(), faker.internet().emailAddress(), "");
-		CustomerAddress customerAddressPOJO = new CustomerAddress("101", "abc apt", "street name1",
-				"near ayyapa temple", "kukatpally", "500072", "India", "Andhra Pradesh");
-		CustomerProduct customerProductPOJO = new CustomerProduct("2022-04-05T18:30:00.000Z", imei, imei, imei,
-				"2022-04-05T18:30:00.000Z", 1, 2);
-		Problems[] problems = new Problems[3];
-		problems[0] = new Problems(1, "battery drains quickly");
-		problems[1] = new Problems(4, "camera not working");
-		problems[2] = new Problems(3, "app crashes");
-
-		CreateNewJob createJobPOJO = new CreateNewJob(0, 2, 1, 1, customerInfoPOJO, customerAddressPOJO,
-				customerProductPOJO, problems);
-		System.out.println(createJobPOJO.toJson());
-		return createJobPOJO;
-	}
-
+	
 	public static String timeStampforJobCreation() {
 
 		Date d1 = new Date();
