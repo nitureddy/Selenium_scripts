@@ -21,8 +21,11 @@ public class PhoenixLoginScript {
 
 		WebDriver wd = new ChromeDriver();
 		Thread.sleep(5000);
+		
 		wd.get("http://www.phoenix.testautomationacademy.in/sign-in");
+		
 		wd.manage().window().maximize();
+		
 		By userNameTextBoxLocator = By.id("username");
 		By passwordTextBoxLocator = By.id("password");
 		Thread.sleep(1000);
