@@ -8,8 +8,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -17,30 +15,24 @@ import io.github.bonigarcia.wdm.WebDriverManager;
  * @author Jatin
  *
  */
-public class BrowserUtility {
+public class BrowserUtilityOld {
 
 	private WebDriver wd;
-	private WebDriverWait wait;
 
-	public BrowserUtility(WebDriver wd) {
+	public BrowserUtilityOld(WebDriver wd) {
 		super();
 		this.wd = wd;
-		wait = new WebDriverWait(this.wd, 30);
 	}
 
-	public BrowserUtility(Browser browser) {
+	public BrowserUtilityOld(Browser browser) {
 		if (browser == Browser.CHROME) {
 			WebDriverManager.chromedriver().setup();
 			wd = new ChromeDriver();
-			wait = new WebDriverWait(this.wd, 30);
-
 		} else if (browser == Browser.FIREFOX) {
 			WebDriverManager.firefoxdriver().setup();
 			wd = new ChromeDriver();
-			wait = new WebDriverWait(this.wd, 30);
-
 		}
-		try { //for me 
+		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -49,17 +41,27 @@ public class BrowserUtility {
 	}
 
 	public void enterText(By elementLocator, String textToEnter) {
-		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
+		WebElement element = wd.findElement(elementLocator);
 		element.clear();
 		element.sendKeys(textToEnter);
-
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void enterText(By elementLocator, Keys KeyToEnter) {
-		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
+		WebElement element = wd.findElement(elementLocator);
 		element.clear();
 		element.sendKeys(KeyToEnter);
-
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void goToWebSite(String url) {
@@ -71,8 +73,13 @@ public class BrowserUtility {
 	}
 
 	public void clickOn(By elementLocator) {
-		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(elementLocator));
+		WebElement element = wd.findElement(elementLocator);
 		element.click();
-
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

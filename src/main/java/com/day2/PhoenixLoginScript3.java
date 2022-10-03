@@ -24,7 +24,13 @@ public class PhoenixLoginScript3 {
 		bu.enterText(By.id("username"), "iamfd");
 		bu.enterText(By.id("password"), "password");
 		bu.clickOn(By.xpath("//span[contains(text(),\"Sign in\")]/../.."));
-		bu.enterText(By.xpath("//input[@data-placeholder=\"Search for a Job or IMEI\"]"), "JOB_14061");
-		bu.enterText(By.xpath("//input[@data-placeholder=\"Search for a Job or IMEI\"]"), Keys.ENTER);
+		bu.clickOn(By.xpath("//span[contains(text(),\"Create Job\")]/../../.."));
+		bu.enterText(By.xpath("//input[@formcontrolname='imeiNo1']"), "12324353536");
+		bu.enterText(By.xpath("//input[@id='mat-input-4']"), "3/10/2022");
+		bu.enterText(By.xpath("//input[@placeholder='Remarks']"), "Test");
+		bu.enterText(By.xpath("//input[@formcontrolname='firstName']"), "Test");
+		bu.enterText(By.xpath("//input[@formcontrolname='lastName']"), "Test");
+		bu.enterText(By.xpath("//input[@formcontrolname='contactNo']"), "11111111111");
+
 	}
 }

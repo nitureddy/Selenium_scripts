@@ -1,0 +1,7 @@
+
+		By.xpath("//input[@formcontrolname="imeiNo1"]")
+		By.xpath("//input[@id="mat-input-4"]")
+		By.xpath("//input[@placeholder="Remarks"]")
+		By.xpath("//input[@formcontrolname="firstName"]")
+		By.xpath("//input[@formcontrolname="lastName"]")
+		By.xpath("//input[@formcontrolname="contactNo"]")
