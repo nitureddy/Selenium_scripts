@@ -40,7 +40,7 @@ public class BrowserUtility {
 			wait = new WebDriverWait(this.wd, 30);
 
 		}
-		try { //for me 
+		try { // for me
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -74,5 +74,13 @@ public class BrowserUtility {
 		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(elementLocator));
 		element.click();
 
+	}
+
+	public void selectFromDropDown(String dropDownControlName, String value) {
+		By oemDropDownLocator = By.xpath("//mat-select[@formcontrolname='" + dropDownControlName + "']");
+		clickOn(oemDropDownLocator);
+
+		By oemNameLocator = By.xpath("//span[contains(text(),'" + value + "')]/..");
+		clickOn(oemNameLocator);
 	}
 }

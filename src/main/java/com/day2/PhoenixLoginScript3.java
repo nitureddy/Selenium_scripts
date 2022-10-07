@@ -31,6 +31,9 @@ public class PhoenixLoginScript3 {
 		bu.enterText(By.xpath("//input[@formcontrolname='firstName']"), "Test");
 		bu.enterText(By.xpath("//input[@formcontrolname='lastName']"), "Test");
 		bu.enterText(By.xpath("//input[@formcontrolname='contactNo']"), "11111111111");
-
+// Automating Custom Drop Down
+		bu.selectFromDropDown("oem", "Apple");
+		bu.selectFromDropDown("id", " Sync issue ");
+		bu.selectFromDropDown("productName", "Iphone");
 	}
 }
