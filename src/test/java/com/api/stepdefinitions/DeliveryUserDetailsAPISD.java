@@ -1,4 +1,4 @@
-package com.stepdefinitions;
+package com.api.stepdefinitions;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;

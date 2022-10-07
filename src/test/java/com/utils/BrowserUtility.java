@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.day2;
+package com.utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -78,11 +78,6 @@ public abstract class BrowserUtility {
 		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(elementLocator));
 		element.click();
 
-	}
-
-	public String getVisibleText(By elementLocator) {
-		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
-		return element.getText();
 	}
 
 	public void selectFromDropDown(String dropDownControlName, String value) {

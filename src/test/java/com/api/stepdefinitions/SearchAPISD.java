@@ -1,4 +1,4 @@
-package com.stepdefinitions;
+package com.api.stepdefinitions;
 
 import static org.hamcrest.Matchers.*;
 import com.api.pojo.Job_Search;
