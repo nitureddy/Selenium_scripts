@@ -79,6 +79,13 @@ public abstract class BrowserUtility {
 		element.click();
 
 	}
+	
+
+	public String getVisibleText(By elementLocator) {
+		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(elementLocator));
+		return element.getText();
+
+	}
 
 	public void selectFromDropDown(String dropDownControlName, String value) {
 		By oemDropDownLocator = By.xpath("//mat-select[@formcontrolname='" + dropDownControlName + "']");

@@ -30,6 +30,12 @@ import com.github.javafaker.Faker;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import com.runner.Runner;
+import com.ui.pojo.CreateNewJobData;
+import com.ui.pojo.DeviceDetailsPOJO;
+import com.ui.pojo.Problem;
+import com.ui.pojo.ProblemDetailsPOJO;
+import com.ui.pojo.WarrantyStatus;
+
 import static io.restassured.RestAssured.*;
 import io.restassured.http.Header;
 
@@ -62,12 +68,12 @@ public final class TestUtils {
 		String lastname = faker.name().lastName();
 		String emailid = lastname + firstname + "001@gmail.com";
 		String imei = faker.numerify("###############");
-		Customer customerInfoPOJO = new Customer(firstname, lastname, "9703334456", "970555445", emailid,
-				emailid);
-		CustomerAddress customerAddressPOJO = new CustomerAddress(faker.address().buildingNumber(), "abc apt", "street name1",
-				faker.address().streetName(), faker.address().cityName(), "500072", "India", "Andhra Pradesh");
-		CustomerProduct customerProductPOJO = new CustomerProduct(timeStampforJobCreation(), imei,
-				imei, imei, timeStampforJobCreation(), 1, 2);
+		Customer customerInfoPOJO = new Customer(firstname, lastname, "9703334456", "970555445", emailid, emailid);
+		CustomerAddress customerAddressPOJO = new CustomerAddress(faker.address().buildingNumber(), "abc apt",
+				"street name1", faker.address().streetName(), faker.address().cityName(), "500072", "India",
+				"Andhra Pradesh");
+		CustomerProduct customerProductPOJO = new CustomerProduct(timeStampforJobCreation(), imei, imei, imei,
+				timeStampforJobCreation(), 1, 2);
 		Problems[] problems = new Problems[3];
 		problems[0] = new Problems(1, "battery drains quickly");
 		problems[1] = new Problems(4, "camera not working");
@@ -78,7 +84,27 @@ public final class TestUtils {
 		System.out.println(createJobPOJO.toJson());
 		return createJobPOJO;
 	}
-	
+
+	public static CreateNewJobData getCreateJobUIData() {
+		Faker faker = new Faker();
+		String firstname = faker.name().firstName();
+		String lastname = faker.name().lastName();
+		String emailid = lastname + firstname + "001@gmail.com";
+		String imei = faker.numerify("###############");
+		Customer customerInfoPOJO = new Customer(firstname, lastname, "9703334456", "970555445", emailid, emailid);
+		CustomerAddress customerAddressPOJO = new CustomerAddress(faker.address().buildingNumber(), "abc apt",
+				"street name1", faker.address().streetName(), faker.address().cityName(), "500072", "India",
+				"Andhra Pradesh");
+		DeviceDetailsPOJO deviceDetailsPOJO = new DeviceDetailsPOJO("Google", "Nexus 2", "Nexus 2 blue",
+				TestUtils.generateIMEI(), "10/10/2022", WarrantyStatus.IN_WARRANTY);
+		ProblemDetailsPOJO problemDetailsPOJO = new ProblemDetailsPOJO(Problem.POOR_BATTERY_LIFE, "some issue");
+
+		CreateNewJobData c = new CreateNewJobData(deviceDetailsPOJO, problemDetailsPOJO, customerInfoPOJO,
+				customerAddressPOJO);
+
+		return c;
+	}
+
 	public static String timeStampforJobCreation() {
 
 		Date d1 = new Date();
@@ -100,6 +126,22 @@ public final class TestUtils {
 		return imei;
 	}
 
+	
+	public static String getJobNumberFromToastMsg(String msg) {
+		//JOB_18064 Job created successfully
+
+		return msg.substring(0, 9);
+	}
+	
+	public static boolean notNull(String data) {
+		if(data!=null) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	/**
 	 * Helps in reading Properties value for Environment <br>
 	 * Properties File are stored in config folder <br>
@@ -145,30 +187,34 @@ public final class TestUtils {
 	public static String generateToken(String role) {
 		if (role.equalsIgnoreCase("FD")) {
 			String token = given().when().header(new Header("content-type", "application/json")).and()
-					.body(new PhoenixLoginCredentialsPOJO("iamfd", "password").toJson()).and().post("v1/login").then().extract().jsonPath().getString("data.token");
+					.body(new PhoenixLoginCredentialsPOJO("iamfd", "password").toJson()).and().post("v1/login").then()
+					.extract().jsonPath().getString("data.token");
 			return token;
-			
+
 		} else if (role.equalsIgnoreCase("SUP")) {
 			String token = given().when().header(new Header("content-type", "application/json")).and()
-					.body(new PhoenixLoginCredentialsPOJO("iamsup", "password").toJson()).and().post("v1/login").then().extract().jsonPath().getString("data.token");
+					.body(new PhoenixLoginCredentialsPOJO("iamsup", "password").toJson()).and().post("v1/login").then()
+					.extract().jsonPath().getString("data.token");
 			return token;
-			
-			
+
 		} else if (role.equalsIgnoreCase("ENG")) {
 			String token = given().when().header(new Header("content-type", "application/json")).and()
-					.body(new PhoenixLoginCredentialsPOJO("iameng", "password").toJson()).and().post("v1/login").then().extract().jsonPath().getString("data.token");
+					.body(new PhoenixLoginCredentialsPOJO("iameng", "password").toJson()).and().post("v1/login").then()
+					.extract().jsonPath().getString("data.token");
 			return token;
 		} else if (role.equalsIgnoreCase("QC")) {
 			String token = given().when().header(new Header("content-type", "application/json")).and()
-					.body(new PhoenixLoginCredentialsPOJO("iamqc", "password").toJson()).and().post("v1/login").then().extract().jsonPath().getString("data.token");
+					.body(new PhoenixLoginCredentialsPOJO("iamqc", "password").toJson()).and().post("v1/login").then()
+					.extract().jsonPath().getString("data.token");
 			return token;
 		} else {
 			String token = given().when().header(new Header("content-type", "application/json")).and()
-					.body(new PhoenixLoginCredentialsPOJO("iamfd", "password").toJson()).and().post("v1/login").then().extract().jsonPath().getString("data.token");
+					.body(new PhoenixLoginCredentialsPOJO("iamfd", "password").toJson()).and().post("v1/login").then()
+					.extract().jsonPath().getString("data.token");
 			return token;
 
 		}
-		
+
 	}
 
 	/**

@@ -22,6 +22,7 @@ public class FDDashboardPage extends BrowserUtility {
 	private static final By USER_ICON_LOCATOR = By.xpath("//mat-icon[@data-mat-icon-name=\"user-circle\"]");
 
 	private static final By USERNAME_LOCATOR = By.xpath("//span[contains(text(),\"Signed in as\")]/../span[2]");
+	private static final By CREATE_JOB_LINK_LOCATOR = By.xpath("//span[contains(text(),\"Create Job\")]/../../..");
 
 	public FDDashboardPage(WebDriver driver) {
 		super(driver);
@@ -43,4 +44,22 @@ public class FDDashboardPage extends BrowserUtility {
 		return getVisibleText(USERNAME_LOCATOR);
 
 	}
+	
+	
+	public CreateJobPage goToCreateJobPage() {
+		clickOn(CREATE_JOB_LINK_LOCATOR);
+		return new CreateJobPage(getWd());
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
