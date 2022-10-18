@@ -6,8 +6,9 @@ package com.ui.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import com.day2.Browser;
-import com.day2.BrowserUtility;
+import com.utils.Browser;
+import com.utils.BrowserUtility;
+import com.utils.Machine;
 
 /**
  * @author Jatin
@@ -37,7 +38,13 @@ public final class LoginPage extends BrowserUtility {
 
 	}
 
+	public LoginPage(Browser browser,Machine m) {
+		super(browser,m); // Constructor Chaining
+		// TODO Auto-generated constructor stub\
+		goToWebSite("http://www.phoenix.testautomationacademy.in/");
+		maximizeTheWindow();
 
+	}
 
 	public FDDashboardPage doLoginWith(String userName, String password) {
 		enterText(USERNAME_TEXTBOX_LOCATOR, userName);

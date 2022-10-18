@@ -11,9 +11,9 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.day2.Browser;
-import com.day2.BrowserUtility;
 import com.ui.pojo.FDDashBoardTablePOJO;
+import com.utils.BrowserUtility;
+import com.utils.TestUtils;
 
 /**
  * @author Jatin
@@ -32,6 +32,8 @@ public class FDDashboardPage extends BrowserUtility {
 	private static final By CREATED_JOB_TODAY = By.xpath("//div[contains(text(),\"Created today\")]/../div[1]/button");
 
 	private static final By FD_DASHBOARD_TABLE = By.tagName("mat-table");
+
+	private ArrayList<FDDashBoardTablePOJO> data;
 
 	public FDDashboardPage(WebDriver driver) {
 		super(driver);
@@ -59,28 +61,13 @@ public class FDDashboardPage extends BrowserUtility {
 		return new CreateJobPage(getWd());
 	}
 
-	public ArrayList<FDDashBoardTablePOJO>  getDataFromTable() {
-		WebDriver wd = getWd();
-		clickOn(CREATED_JOB_TODAY);
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		WebElement tableElement = wd.findElement(FD_DASHBOARD_TABLE);
-		By rowLocator = By.xpath("//mat-row");
-		By cellLocator = By.xpath("//mat-cell");
-		ArrayList<FDDashBoardTablePOJO> data = new ArrayList<FDDashBoardTablePOJO>();
-		List<WebElement> rowList = tableElement.findElements(rowLocator);
-		for (WebElement rowElement : rowList) {
+	public FDDashboardPage getDataFromTheFDTable() {
+		data = getDataFromTable(CREATED_JOB_TODAY, FD_DASHBOARD_TABLE);
+		return new FDDashboardPage(getWd());
+	}
 
-			List<WebElement> cellList = rowElement.findElements(By.xpath(".//mat-cell"));
-			data.add(new FDDashBoardTablePOJO(cellList.get(0).getText(), cellList.get(1).getText(),
-					cellList.get(2).getText(), cellList.get(3).getText(), cellList.get(4).getText(),
-					cellList.get(5).getText(), cellList.get(6).getText()));
-		}
-		return data;
+	public boolean checkIFJobIsPresentInTable(String jobNumber) {
+		return TestUtils.searchForDataInList(data, jobNumber);
 	}
 
 }

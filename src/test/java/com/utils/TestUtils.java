@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -32,6 +33,7 @@ import com.opencsv.exceptions.CsvException;
 import com.runner.Runner;
 import com.ui.pojo.CreateNewJobData;
 import com.ui.pojo.DeviceDetailsPOJO;
+import com.ui.pojo.FDDashBoardTablePOJO;
 import com.ui.pojo.Problem;
 import com.ui.pojo.ProblemDetailsPOJO;
 import com.ui.pojo.WarrantyStatus;
@@ -126,22 +128,20 @@ public final class TestUtils {
 		return imei;
 	}
 
-	
 	public static String getJobNumberFromToastMsg(String msg) {
-		//JOB_18064 Job created successfully
+		// JOB_18064 Job created successfully
 
 		return msg.substring(0, 9);
 	}
-	
+
 	public static boolean notNull(String data) {
-		if(data!=null) {
+		if (data != null) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Helps in reading Properties value for Environment <br>
 	 * Properties File are stored in config folder <br>
@@ -305,5 +305,16 @@ public final class TestUtils {
 
 		return dataIterator;
 
+	}
+
+	public static boolean searchForDataInList(ArrayList<FDDashBoardTablePOJO> dataList, String jobNumber) {
+		List<FDDashBoardTablePOJO> data = dataList.stream().filter(x -> (x.getJob_Number().equalsIgnoreCase(jobNumber)))
+				.toList();
+
+		if (data.size() == 1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

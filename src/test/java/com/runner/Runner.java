@@ -8,6 +8,8 @@ import org.testng.xml.XmlPackage;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;
 
+import com.utils.Machine;
+
 public class Runner {
 
 	/*
@@ -17,16 +19,21 @@ public class Runner {
 	 * 
 	 */
 
-	public static String env, testType, component, name;
-
+	public static String env, testType, component, name, browserName, machineType;
+	public static Machine m;
 	public static void main(String[] args) {
 // env testType component 
 
-		if (verifyEnvType(args[0]) && verifyTestType(args[1]) && verifyComponentType(args[2])) {
+		if (verifyEnvType(args[0]) && verifyTestType(args[1]) && verifyComponentType(args[2])
+				&& verifyBrowserName(args[3]) && verifymachineType(args[4])) {
 
 			env = args[0].toLowerCase();
 			testType = args[1].toLowerCase();
 			component = args[2].toLowerCase();
+			browserName = args[3].toLowerCase();
+			machineType = args[4].toUpperCase();
+			m = Machine.valueOf(machineType);	//how to convert string to enum;
+		
 			name = env + "_" + testType + "_" + component;
 			generateDynamicXML();
 		}
@@ -40,6 +47,37 @@ public class Runner {
 		System.out.println(testType);
 		System.out.println(component);
 
+	}
+
+	/**
+	 * @param string
+	 * @return
+	 */
+	private static boolean verifymachineType(String machineType) {
+		// TODO Auto-generated method stub
+		if (machineType.equalsIgnoreCase("LOCAL") || machineType.equalsIgnoreCase("BS")
+				|| machineType.equalsIgnoreCase("LAMBDA")) {
+			return true;
+		} else {
+			System.err.println(
+					"Invalid machine Type  Valid Values are BS /LAMBDA /LOCAL (if you want to do local testing");
+			System.out.println("Pleasue Use BS or LAMBDA for CI tools ");
+			return false;
+		}
+	}
+
+	/**
+	 * @param string
+	 * @return
+	 */
+	private static boolean verifyBrowserName(String browserName) {
+		// TODO Auto-generated method stub
+		if (browserName.equalsIgnoreCase("chrome") || browserName.equalsIgnoreCase("firefox")) {
+			return true;
+		} else {
+			System.err.println("Invalid BrowserName  Valid Values are Firefox /Chrome");
+			return false;
+		}
 	}
 
 	// Heart
@@ -79,7 +117,7 @@ public class Runner {
 		// myTest.setXmlClasses(myClasses);
 		myTest.setPackages(myPackage);
 
-		 myTest.addIncludedGroup("e2e"); // *************
+		myTest.addIncludedGroup("e2e"); // *************
 		// Create a list of XmlTests and add the Xmltest you created earlier to it.
 		List<XmlTest> myTests = new ArrayList<XmlTest>();
 		myTests.add(myTest);
@@ -125,7 +163,7 @@ public class Runner {
 	private static boolean verifyComponentType(String component) {
 		// TODO Auto-generated method stub
 
-		if (component.equalsIgnoreCase("api")) {
+		if (component.equalsIgnoreCase("api") || component.equalsIgnoreCase("ui")) {
 			return true;
 		} else {
 			System.err.println("Invalid component type Valid Values are api");
