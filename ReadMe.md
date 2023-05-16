@@ -1,6 +1,5 @@
-# Phoenix Automation Framework
-## _Test Automation Academy Project_
-
+# Automation Framework
+## _Test Automation 
 - Java 1.8
 - Maven
 - TestNG
